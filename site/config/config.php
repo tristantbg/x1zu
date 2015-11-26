@@ -30,3 +30,4 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 */
 
 c::set('oembed.lazyvideo', true);
+c::set('autopublish.templates', array('project', 'item'));
