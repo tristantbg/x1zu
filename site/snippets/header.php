@@ -2,10 +2,28 @@
 <html lang="en">
 <head>
 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><?php echo $site->title()->html() ?> | <?php echo $page->title()->html() ?></title>
+	<meta name="description" content="<?php echo $site->description()->html() ?>">
+	<meta name="keywords" content="<?php echo $site->keywords()->html() ?>">
+	<meta property="og:url" content="<?php echo $site->homePage()->url() ?>"/>
+	<meta property="og:image" content="<?= url('assets/images/og_image.jpg') ?>"/>
+	<link rel="shortcut icon" href="<?= url('assets/images/favicon.ico') ?>">
+	<link rel="icon" href="<?= url('assets/images/favicon.ico') ?>" type="image/x-icon">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <title><?php echo $site->title()->html() ?> | <?php echo $page->title()->html() ?></title>
+	<?php 
+	echo css('assets/css/app.min.css');
+	echo js('assets/js/app.min.js');
+	?>
+
+	<?php if(!$site->customcss()->empty()): ?>
+		<style type="text/css">
+			<?php echo $site->customcss()->html() ?>
+		</style>
+	<?php endif ?>
 
 </head>
 <body>

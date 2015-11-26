@@ -1,8 +1,16 @@
 @import 'nib'
 @import '../../node_modules/jeet/stylus/jeet'
 @import '_mixins.styl'
+@import '../oembed/oembed.css'
+
+scale = 0 400px 600px 800px 1050px
 
 // CSS Reset
 global-reset()
 
 webfont('Franklin Gothic', 'franklingothic', true, 'bold')
+
+h1
+	font-size 3em
+	+below(3)
+		color blue

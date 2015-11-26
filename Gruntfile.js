@@ -2,10 +2,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         concat: {
             js: {
-                src: [
-                    'assets/bower_components/jquery/dist/jquery.js',
-                    'assets/js/app.js'
-                ],
+                src: ['assets/lib/jquery/dist/jquery.js','assets/oembed/oembed.js', 'assets/js/app.js'],
                 dest: 'assets/js/app.concat.js'
             }
         },
@@ -17,6 +14,11 @@ module.exports = function(grunt) {
         },
         stylus: {
             compile: {
+                options: {
+                    use: [
+                        require('rupture')
+                    ],
+                },
                 files: {
                     'assets/css/app.min.css': 'assets/css/app.styl'
                 }
@@ -24,26 +26,20 @@ module.exports = function(grunt) {
         },
         watch: {
             js: {
-                files: [
-                    'assets/bower_components/**/*.js',
-                    'assets/js/**/!(app.min|app.concat).js'
-                ],
+                files: ['assets/bower_components/**/*.js', 'assets/js/**/!(app.min|app.concat).js'],
                 tasks: ['javascript'],
                 options: {
                     livereload: true,
                 }
             },
             css: {
-                files: [
-                    'assets/css/**/*.styl'
-                ],
+                files: ['assets/css/**/*.styl'],
                 tasks: ['stylesheets'],
                 options: {
                     livereload: true,
                 }
             }
         },
-
         php: {
             test: {
                 options: {
@@ -54,22 +50,13 @@ module.exports = function(grunt) {
             }
         }
     });
-    
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    
-    grunt.registerTask('javascript', [
-        'concat:js',
-        'uglify'
-    ]);
-    grunt.registerTask('stylesheets', [
-        'stylus'
-    ]);
-
+    grunt.registerTask('javascript', ['concat:js', 'uglify']);
+    grunt.registerTask('stylesheets', ['stylus']);
     grunt.registerTask('test', ['php', 'mocha']);
-
     grunt.registerTask('default', ['javascript', 'stylesheets', 'watch', 'php']);
 };
