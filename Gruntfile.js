@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         concat: {
             js: {
-                src: ['assets/lib/jquery/dist/jquery.js','assets/oembed/oembed.js', 'assets/js/app.js'],
+                src: ['assets/lib/jquery/dist/jquery.js', 'assets/js/vendor/modernizr-build.js', 'assets/oembed/oembed.js', 'assets/js/app.js'],
                 dest: 'assets/js/app.concat.js'
             }
         },

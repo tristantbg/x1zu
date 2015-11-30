@@ -1,15 +1,15 @@
 {
-	"name": "",
-	"description": "",
-	"private": true,
-	"devDependencies": {
-		"grunt-contrib-stylus": "*",
-		"grunt-php": "*",
-		"jeet": "*",
-		"rupture": "*",
-	    "grunt-contrib-concat": "*",
-	    "grunt-contrib-uglify": "*",
-	    "grunt-contrib-watch": "*",
-		"grunt": "*"
-	}
+  "name": "",
+  "description": "",
+  "private": true,
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-stylus": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-php": "*",
+    "jeet": "*",
+    "rupture": "*"
+  }
 }

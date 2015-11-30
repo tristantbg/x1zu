@@ -12,6 +12,9 @@ Bower is a front-end package manager. For documentation, please see <http://bowe
 ### Jeet
 Jeet is an advanced and intuitive grid system for both Sass and Stylus. For documentation, please see <http://jeet.gs>
 
+### Rupture
+Rupture is a utility for working with media queries in stylus.
+
 ### Server Requirements
 Kirby runs on PHP 5.3+, Apache, or Nginx
 
