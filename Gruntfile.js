@@ -9,7 +9,10 @@ module.exports = function(grunt) {
         uglify: {
             build: {
                 src: 'assets/js/app.concat.js',
-                dest: 'assets/js/app.min.js'
+                dest: 'assets/js/app.min.js',
+                options: {
+                    sourceMap: true
+                }
             }
         },
         stylus: {
