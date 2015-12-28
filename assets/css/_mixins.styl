@@ -72,35 +72,27 @@ dead-center(position)
 	transform: translate(-50%,-50%)
 
 
+vendor(prop, args)
+	-webkit-{prop} args
+	-moz-{prop} args
+	-ms-{prop} args
+	-o-{prop} args
+	{prop} args
+
 border-radius(args)
-	-webkit-border-radius args
-	-moz-border-radius args
-	-ms-border-radius args
-	-o-border-radius args
-	border-radius args
+	vendor(border-radius,args)
 
 box-shadow(args)
-	-webkit-box-shadow args
-	-moz-box-shadow args
-	-ms-box-shadow args
-	-o-box-shadow args
-	box-shadow args
+	vendor(box-shadow,args)
 	
 transition(what = all,time = 300ms,easing = ease)
-	-webkit-transition what time easing
-	-moz-transition what time easing
-	-ms-transition what time easing
-	-o-transition what time easing
-	transition what time easing
+	vendor(transition,what time easing)
 	
-transform(arg)
-	-webkit-transform arg
-	-moz-transform arg
-	-ms-transform arg
-	-o-transform arg
-	transform arg
+transform(args)
+	vendor(transform,args)
+
+filter(args)
+	vendor(filter,args)
 
 box-sizing()
-	-moz-box-sizing border-box
-	-webkit-box-sizing border-box
-	box-sizing border-box
+	vendor(box-sizing,border-box)
