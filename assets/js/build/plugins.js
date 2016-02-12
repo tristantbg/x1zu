@@ -1,0 +1,1 @@
+$(function(){$(".oembed-video .thumb, .oembed-video .play").click(function(){var a=$(this).parent(),b=a.find("iframe, object");b.attr("src",b.attr("data-src")),b.css({display:"block"}),a.find(".play, .thumb").remove()})});

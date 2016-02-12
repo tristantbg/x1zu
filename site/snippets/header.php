@@ -16,8 +16,11 @@
 
 	<?php 
 	echo css('assets/css/app.min.css');
-	echo js('assets/js/app.min.js');
+	echo js('assets/js/vendor/modernizr.min.js');
 	?>
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js">\x3C/script>')</script>
 
 	<?php if(!$site->customcss()->empty()): ?>
 		<style type="text/css">

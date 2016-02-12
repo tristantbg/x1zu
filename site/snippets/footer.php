@@ -10,5 +10,9 @@
   </script>
 <?php endif ?>
 
+	<?php
+	echo js(array('assets/js/build/plugins.js', 'assets/js/build/app.min.js'));
+	?>
+
 </body>
 </html>

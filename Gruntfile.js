@@ -1,15 +1,23 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         concat: {
+            plugins: {
+                src: ['assets/oembed/oembed.min.js'],
+                dest: 'assets/js/plugins.concat.js'
+            },
             js: {
-                src: ['assets/lib/jquery/dist/jquery.js', 'assets/js/vendor/modernizr-build.js', 'assets/oembed/oembed.js', 'assets/js/app.js'],
+                src: ['assets/js/app.js'],
                 dest: 'assets/js/app.concat.js'
-            }
+            },
         },
         uglify: {
+            plugins: {
+                src: 'assets/js/plugins.concat.js',
+                dest: 'assets/js/build/plugins.js'
+            },
             build: {
                 src: 'assets/js/app.concat.js',
-                dest: 'assets/js/app.min.js',
+                dest: 'assets/js/build/app.min.js',
                 options: {
                     sourceMap: true
                 }
@@ -29,7 +37,7 @@ module.exports = function(grunt) {
         },
         watch: {
             js: {
-                files: ['assets/bower_components/**/*.js', 'assets/js/**/!(app.min|app.concat).js'],
+                files: ['assets/lib/**/*.js', 'assets/js/**/!(app.min|app.concat).js'],
                 tasks: ['javascript'],
                 options: {
                     livereload: true,
@@ -58,7 +66,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.registerTask('javascript', ['concat:js', 'uglify']);
+    grunt.registerTask('javascript', ['concat', 'uglify']);
     grunt.registerTask('stylesheets', ['stylus']);
     grunt.registerTask('test', ['php', 'mocha']);
     grunt.registerTask('default', ['javascript', 'stylesheets', 'watch', 'php']);
