@@ -4,11 +4,11 @@ var width = $(window).width(),
 $(function() {
     var app = {
         init: function() {
-          $(window).load(function() {
-        $(".loader").fadeOut("fast");
-    });
-    $(window).resize(function(event) {});
-    $(document).ready(function($) {});
+            $(window).load(function() {
+                $(".loader").fadeOut("fast");
+            });
+            $(window).resize(function(event) {});
+            $(document).ready(function($) {});
         },
         loadContent: function(url, target) {
             $.ajax({
