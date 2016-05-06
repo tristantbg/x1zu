@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         concat: {
             plugins: {
-                src: ['assets/oembed/oembed.min.js'],
+                src: ['assets/lib/underscore/underscore.min.js','assets/oembed/oembed.min.js'],
                 dest: 'assets/js/plugins.concat.js'
             },
             js: {
