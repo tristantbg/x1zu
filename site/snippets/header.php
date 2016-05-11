@@ -24,7 +24,9 @@
     <?php endif ?>
     <meta property="og:type" content="website" />
     <meta property="og:url" content="<?php echo html($page->url()) ?>" />
-    <meta property="og:image" content="<?= url('assets/images/og_image.jpg') ?>" />
+    <?php if(!$site->ogimage()->empty()): ?>
+	<meta property="og:image" content="<?= $site->ogimage()->toFile()->width(1200)->url() ?>"/>
+	<?php endif ?>
     <meta property="og:description" content="<?php echo $page->description()->html() ?>" />
     <?php if($page->isHomepage()): ?>
       <meta itemprop="name" content="<?php echo $site->title()->html() ?>">
