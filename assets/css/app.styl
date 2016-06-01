@@ -4,14 +4,29 @@
 @import 'normalize.css'
 @import '../oembed/oembed.css'
 
-scale = 0 400px 600px 800px 1050px
+// Media queries
+$desktop = 1600px
+$laptop = 1100px
+$tablet = 768px
+$mobile = 400px
+
+// Colors
+$primary ?= #fff
+
+// Metrics
+$padding = 10px
 
 // CSS Reset
 global-reset()
 
 webfont('Franklin Gothic', 'franklingothic', true, 'bold')
 
-h1
-	font-size 3em
-	+below(3)
-		color blue
+.loader
+	position fixed
+	width 100%
+	height 100%
+	top 0
+	left 0
+	background $primary url('../images/loader.gif') center no-repeat
+	background-size 15px
+	z-index 10000
