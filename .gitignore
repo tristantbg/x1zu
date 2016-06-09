@@ -1,6 +1,6 @@
 .DS_Store
 Thumbs.db
-/content
+/content/*
 /assets/lib
 /assets/css/app.min.css
 /assets/js/build/*
