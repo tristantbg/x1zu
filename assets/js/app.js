@@ -1,6 +1,8 @@
 /* globals $:false */
 var width = $(window).width(),
-    height = $(window).height();
+    height = $(window).height(),
+    $root = '/';
+$sitetitle = 'Root';
 $(function() {
     var app = {
         init: function() {
@@ -8,7 +10,35 @@ $(function() {
                 $(".loader").fadeOut("fast");
             });
             $(window).resize(function(event) {});
-            $(document).ready(function($) {});
+            $(document).ready(function($) {
+                $body = $('body');
+                History.Adapter.bind(window, 'statechange', function() {
+                    var State = History.getState();
+                    console.log(State);
+                    var content = State.data;
+                    if (content.type == 'project') {
+                        $body.addClass('project loading');
+                        app.loadContent(State.url + '/ajax', slidecontainer);
+                    }
+                });
+                //esc
+                $(document).keyup(function(e) {
+                    if (e.keyCode === 27) app.goIndex();
+                });
+                //left
+                $(document).keyup(function(e) {
+                    if (e.keyCode === 37 && $slider) app.goPrev($slider);
+                });
+                //right
+                $(document).keyup(function(e) {
+                    if (e.keyCode === 39 && $slider) app.goNext($slider);
+                });
+            });
+        },
+        goIndex: function() {
+            History.pushState({
+                type: 'index'
+            }, $sitetitle, window.location.origin + $root);
         },
         loadContent: function(url, target) {
             $.ajax({
