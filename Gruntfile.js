@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         concat: {
             plugins: {
-                src: ['assets/lib/underscore/underscore.min.js','assets/oembed/oembed.min.js','assets/lib/history.js/scripts/bundled/html4+html5/jquery.history.js'],
+                src: ['assets/lib/flickity/dist/flickity.pkgd.min.js','assets/lib/rellax/rellax.min.js','assets/lib/history.js/scripts/bundled/html4+html5/jquery.history.js','assets/lib/smooth-scroll/dist/js/smooth-scroll.min.js'],
                 dest: 'assets/js/plugins.concat.js'
             },
             js: {

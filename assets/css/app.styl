@@ -3,6 +3,7 @@
 @import '_mixins.styl'
 @import 'normalize.css'
 @import '../oembed/oembed.css'
+@import './vendor/flickity.min.css'
 
 // Media queries
 $desktop = 1600px
@@ -24,17 +25,38 @@ webfont('Franklin Gothic', 'franklingothic', true, 'bold')
 
 body,html
 	width 100%
-	height 100%
+	min-height 100vh
 	background-color $primary
 	-webkit-text-size-adjust 100%
+
+html
+	font-family 'PxGroteskRegular', 'Helvetica Neue', 'Arial', sans-serif
+	font-size 62.5%
 
 body
 	text-rendering optimizeLegibility
 	font-smoothing()
-	font-size 62.5%
+	font-size 1.6em
+	line-height 1em
+
+em
+	font-family 'PxGrotesk-RegularItalic', 'Helvetica Neue', 'Arial', sans-serif
+
+p, h2
+	font-size 1.9em
+	line-height 1.2em
 
 p
 	margin-bottom 1em
+
+p:last-of-type
+	margin-bottom 0
+
+h2
+	margin-top 1em
+
+h2:first-of-type
+	margin-top 0
 
 ::selection
 	background $secondary
@@ -59,3 +81,134 @@ a, a:hover, a:visited, a:focus
 	background $primary url('../images/loader.gif') center no-repeat
 	background-size 15px
 	z-index 10000
+
+.site_title
+	position fixed
+	top $padding
+	left $padding
+	z-index 100
+
+#container
+	.inner
+		.current_title
+			transition(color, 200ms)
+			color $primary
+		.nav_select, .page_content, .slider
+			transition(opacity, 200ms)
+			opacity 1
+		header
+			z-index 100
+			height 2em
+			.current_title
+				color $primary
+				mix-blend-mode difference
+				position fixed
+				top $padding
+				left 20%
+				.year
+					margin-right 1em
+				li
+					display inline-block
+					margin-right .4em
+			.nav_select
+				position fixed
+				top $padding
+				right $padding
+				li.infos_switch
+					cursor pointer
+				li
+					display inline-block
+					margin-left .4em
+		.page_content
+			padding 0 20% 2em
+			display inline-block
+			flowing-paragraph(2.6em)
+		.page_content.albums
+			width 88%
+			padding 0 6% 2em
+			.album_thumb
+				col(1/3, gutter:4, cycle:3)
+			.album_thumb:nth-child(n)
+				margin-top 20%
+			.album_thumb:nth-child(2n)
+				margin-top 30%
+			.album_thumb:nth-child(3n)
+				margin-top 5%
+		.slider
+			align(vertical)
+			width 100%
+			height 74%
+			overflow hidden
+			//transition(all,800ms)
+			+below($tablet)
+				height 80%
+			.flickity-viewport, .flickity-slider
+				height 100%
+			.gallery_cell
+				height 100%
+				width 100%
+				flexbox()
+				align-items center
+				justify-content center
+				background $primary url('../images/loader.gif') center no-repeat
+				background-size 15px
+				.content
+					width auto
+					height 100%
+					margin 0
+					padding 0
+					background $primary
+					color $primary
+					+below($tablet)
+						width initial
+						height initial
+						max-width 'calc(100% - %s * 2)' % ($padding)
+						max-height 100%
+				.content:nth-child(n+1)
+					margin-left -1px
+				.content.lazyload
+					opacity 0
+				.content.flickity-lazyloaded
+					opacity 1
+
+.album-navigation
+	display none
+	position fixed
+	width 100%
+	height 100%
+	top 15%
+	left 0
+	z-index 50
+	.prev, .next
+		span(1/2)
+		height 85%
+		cursor pointer
+	.prev:hover, .next:hover
+		cursor pointer
+
+body.album
+	.album-navigation
+		display block
+	#container .inner
+		.slider
+			display block
+		.page_content
+			display none
+	#container.infos
+		.slider
+			display none
+		.page_content
+			display block
+
+body.leaving
+	cursor wait
+	#container .inner
+		.current_title
+			color $secondary
+		.nav_select, .page_content, .slider
+			opacity 0
+
+body.leaving.index
+	#container .inner
+		.current_title
+			color $primary
