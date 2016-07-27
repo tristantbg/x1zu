@@ -58,7 +58,7 @@
 	<?php endif ?>
 
 </head>
-<body <?php if($page->isHomepage()): echo ' class="index"'; elseif($page->content()->name() == 'project'): echo ' class="album"'; endif?>>
+<body <?php if($page->isHomepage()): echo ' class="index"'; elseif($page->content()->name() == 'project'): echo ' class="album"'; else: echo ' class="page"'; endif?>>
 
 	<div class="loader"></div>
 
@@ -91,7 +91,11 @@
 					<li><a href="<?php echo $pages->find('about')->url() ?>" data-target="page" data-title="<?php echo $pages->find('about')->title()->html() ?>"><?php echo $pages->find('about')->title()->html() ?></a></li>
 				<?php elseif($page->content()->name() == 'project'): ?>
 					<li class="infos_switch"><?php echo ucwords($page->textmenu()->html()) ?></li>
-					<li><a href="<?php echo $site->homePage()->url() ?>" data-target="index">Close</a></li>
+					<?php if($page->isChildOf($pages->find('index/work'))): ?>
+						<li><a href="<?php echo $site->homePage()->url() ?>" data-target="index">Close</a></li>
+					<?php else: ?>
+						<li><a href="<?php echo $pages->find('about')->url() ?>" data-target="page">Close</a></li>
+					<?php endif ?>
 				<?php elseif($page->content()->name() == 'about'): ?>
 					<li><a href="<?php echo $site->homePage()->url() ?>" data-target="index">Work</a></li>
 				<?php endif ?>

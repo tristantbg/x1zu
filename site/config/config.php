@@ -30,6 +30,7 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 */
 
 c::set('oembed.lazyvideo', true);
+c::set('typography.hyphenation', false);
 c::set('sitemap.exclude', array('error'));
 c::set('sitemap.important', array('about'));
 c::set('thumb.quality', 100);

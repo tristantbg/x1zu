@@ -3,7 +3,7 @@
 <div class="slider">
 
 <?php foreach ($page->medias()->yaml() as $slide): ?>
-
+	
 	<div class="gallery_cell">
 			<img class="content lazyload" alt="<?php  echo $page->title()->html().' — © '.$page->date("Y").', '.$site->title(); ?>" data-src="<?php echo resizeOnDemand($page->image($slide), $thumbmin) ?>" data-flickity-lazyload="<?php echo resizeOnDemand($page->image($slide), $thumbmax) ?>" height="100%" width="auto">
 			<noscript>

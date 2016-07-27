@@ -69,8 +69,7 @@ $(function() {
                         });
                 }
                 smoothScroll.init({
-                    speed: 1300,
-                    offset: 30,
+                    speed: 1300
                 });
                 //var rellax = new Rellax('.album_thumb');
                 //esc
@@ -94,12 +93,14 @@ $(function() {
         },
         mouseNav: function(event) {
             $(window).mousemove(function(event) {
+                if ($body.hasClass('page')) {
                 posX = event.pageX;
                 posY = event.pageY;
-                $('.mouse_nav').css({
-                    'top': posY + 'px',
+                $('.img_hover').css({
+                    'top': posY + 5 + 'px',
                     'left': posX + 'px'
                 });
+                }
             });
         },
         mobileMenu: function() {

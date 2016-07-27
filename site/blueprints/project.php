@@ -13,6 +13,11 @@ fields:
     label: Title
     type:  text
     width: 1/3
+  subtitle:
+    label: Subtitle
+    type: text
+    width: 1/3
+    help: Only for exhibitions
   category:
     label: Category
     type: text
