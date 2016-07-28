@@ -156,11 +156,11 @@ $(function() {
                 $slider.on('lazyLoad.flickity', function(event, cellElement) {
                     $body.removeClass('loading');
                 });
-                $('.prev').bind('click', function(e) {
+                $('body').on('click', '.prev', function(e) {
                     e.preventDefault();
                     app.goPrev($slider);
                 });
-                $('.next').bind('click', function(e) {
+                $('body').on('click', '.next', function(e) {
                     e.preventDefault();
                     app.goNext($slider);
                 });
