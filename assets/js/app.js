@@ -2,10 +2,23 @@
 var width = $(window).width(),
     height = $(window).height(),
     $slider = null,
-    $root = '/estellehanania',
+    $root = '/new',
     $sitetitle = 'Estelle Hanania',
     $body, $container, $currentyear, $currenttitle, content, flkty, flickityFirst = true;
 $(function() {
+    Flickity.prototype.getAdjacentCellElementAlone = function(adjacentCount, index) {
+        adjacentCount = adjacentCount || 1;
+        index = index === undefined ? this.selectedIndex : index;
+        var startIndex = index + adjacentCount;
+        var len = this.cells.length;
+        var cellElems = [];
+        var cellIndex = this.options.wrapAround ? fizzyUIUtils.modulo(startIndex, len) : startIndex;
+        var cell = this.cells[cellIndex];
+        if (cell) {
+            cellElems.push(cell.element);
+        }
+        return cellElems;
+    };
     var app = {
         init: function() {
             $(window).load(function() {
@@ -56,17 +69,17 @@ $(function() {
                 });
                 if ($body.hasClass('album')) {
                     app.loadSlider();
-                } else if($body.hasClass('index')) {
-                  $('.album_thumb img').hover(function() {
-                            $el = $(this).parent().parent();
-                            $currentyear.html($el.data('year'));
-                            $currenttitle.html($el.data('title') + ' (' + $el.data('category') + ')');
-                        }, function() {
-                          if (!$body.hasClass('leaving')) {
+                } else if ($body.hasClass('index')) {
+                    $('.album_thumb img').hover(function() {
+                        $el = $(this).parent().parent();
+                        $currentyear.html($el.data('year'));
+                        $currenttitle.html($el.data('title') + ' (' + $el.data('category') + ')');
+                    }, function() {
+                        if (!$body.hasClass('leaving')) {
                             $currentyear.html('');
                             $currenttitle.html('');
-                            }
-                        });
+                        }
+                    });
                 }
                 smoothScroll.init({
                     speed: 1300
@@ -94,12 +107,12 @@ $(function() {
         mouseNav: function(event) {
             $(window).mousemove(function(event) {
                 if ($body.hasClass('page')) {
-                posX = event.pageX;
-                posY = event.pageY;
-                $('.img_hover').css({
-                    'top': posY + 5 + 'px',
-                    'left': posX + 'px'
-                });
+                    posX = event.pageX;
+                    posY = event.pageY;
+                    $('.img_hover').css({
+                        'top': posY + 5 + 'px',
+                        'left': posX + 'px'
+                    });
                 }
             });
         },
@@ -118,14 +131,15 @@ $(function() {
                 imagesLoaded: true,
                 lazyLoad: 1,
                 setGallerySize: false,
+                friction: 0.3,
                 //percentPosition: false,
-                wrapAround: true,
+                wrapAround: false,
                 prevNextButtons: false,
                 pageDots: false,
                 draggable: true
             });
             flkty = $slider.data('flickity');
-            lastCell = false;
+            var prevCell;
             if (flickityFirst) {
                 $slider.on('staticClick.flickity', function(event, pointer, cellElement, cellIndex) {
                     if (!cellElement) {
@@ -136,7 +150,19 @@ $(function() {
                 $slider.on('lazyLoad.flickity', function(event, cellElement) {
                     $body.removeClass('loading');
                 });
-                $slider.on('cellSelect.flickity', function() {});
+                $slider.on('cellSelect.flickity', function() {
+                    //$('.gallery-cell').removeClass('is-next');
+                    if (prevCell <= flkty.selectedIndex) {
+                      $slider.removeClass('backwards').addClass('forwards');
+                    }else {
+                      $slider.removeClass('forwards').addClass('backwards');
+                    }
+                    var adjCellPrev = $slider.flickity('getAdjacentCellElementAlone', -1);
+                    var adjCellNext = $slider.flickity('getAdjacentCellElementAlone', 1);
+                    $(adjCellPrev).removeClass('is-next').addClass('is-prev');
+                    $(adjCellNext).removeClass('is-prev').addClass('is-next');
+                    prevCell = flkty.selectedIndex;
+                });
                 $('.prev').bind('click', function(e) {
                     e.preventDefault();
                     app.goPrev($slider);
@@ -175,7 +201,7 @@ $(function() {
                     setTimeout(function() {
                         $body.removeClass('leaving');
                         if (content.type == 'project') {
-                          $body.attr('class', 'album');
+                            $body.attr('class', 'album');
                         }
                     }, 100);
                     if (content.type == 'project') {
@@ -192,9 +218,9 @@ $(function() {
                             $currentyear.html($el.data('year'));
                             $currenttitle.html($el.data('title') + ' (' + $el.data('category') + ')');
                         }, function() {
-                          if (!$body.hasClass('leaving')) {
-                            $currentyear.html('');
-                            $currenttitle.html('');
+                            if (!$body.hasClass('leaving')) {
+                                $currentyear.html('');
+                                $currenttitle.html('');
                             }
                         });
                         app.deferImages();
