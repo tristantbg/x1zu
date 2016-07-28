@@ -151,11 +151,10 @@ $(function() {
                     $body.removeClass('loading');
                 });
                 $slider.on('cellSelect.flickity', function() {
-                    //$('.gallery-cell').removeClass('is-next');
                     if (prevCell <= flkty.selectedIndex) {
-                      $slider.removeClass('backwards').addClass('forwards');
-                    }else {
-                      $slider.removeClass('forwards').addClass('backwards');
+                        $slider.removeClass('backwards').addClass('forwards');
+                    } else {
+                        $slider.removeClass('forwards').addClass('backwards');
                     }
                     var adjCellPrev = $slider.flickity('getAdjacentCellElementAlone', -1);
                     var adjCellNext = $slider.flickity('getAdjacentCellElementAlone', 1);
