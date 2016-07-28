@@ -2,7 +2,7 @@
 var width = $(window).width(),
     height = $(window).height(),
     $slider = null,
-    $root = '/estellehanania',
+    $root = '/new',
     $sitetitle = 'Estelle Hanania',
     $body, $container, $currentyear, $currenttitle, content, flkty, flickityFirst = true;
 $(function() {
@@ -25,7 +25,9 @@ $(function() {
                 app.deferImages();
                 $(".loader").fadeOut(300);
             });
-            $(window).resize(function(event) {});
+            $(window).resize(function(event) {
+                app.sizeSet();
+            });
             $(document).ready(function($) {
                 $body = $('body');
                 $container = $('#container');
@@ -104,6 +106,10 @@ $(function() {
                 }
             });
         },
+        sizeSet: function() {
+            width = $(window).width();
+            height = $(window).height();
+        },
         mouseNav: function(event) {
             $(window).mousemove(function(event) {
                 if ($body.hasClass('page')) {
@@ -111,7 +117,7 @@ $(function() {
                     posY = event.pageY;
                     $('.img_hover').css({
                         'top': posY + 5 + 'px',
-                        'left': posX + 'px'
+                        'left': posX + 'px',
                     });
                 }
             });

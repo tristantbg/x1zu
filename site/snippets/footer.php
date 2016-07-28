@@ -1,10 +1,10 @@
-</div> <!-- inner -->
-</div> <!-- container -->
-
 <div class="album-navigation">
 	<div class="prev"></div>
 	<div class="next"></div>
 </div>
+
+</div> <!-- inner -->
+</div> <!-- container -->
 
 <?php if(!$site->googleanalytics()->empty()): ?>
   <!-- Google Analytics-->

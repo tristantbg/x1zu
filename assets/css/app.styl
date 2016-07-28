@@ -159,7 +159,8 @@ a, a:hover, a:visited, a:focus
 				height 80%
 			.flickity-viewport, .flickity-slider
 				height 100%
-				transform(none !important)
+				+above($laptop)
+					transform(none !important)
 			.gallery_cell
 				height 100%
 				width 100%
@@ -168,8 +169,9 @@ a, a:hover, a:visited, a:focus
 				justify-content center
 				background transparent url('../images/loader.gif') center no-repeat
 				background-size 15px
-				left 0% !important
-				transform(translate3d(100%,0,0))
+				+above($laptop)
+					left 0% !important
+					transform(translate3d(100%,0,0))
 				.content
 					width auto
 					height 100%
@@ -189,25 +191,32 @@ a, a:hover, a:visited, a:focus
 				.content.flickity-lazyloaded
 					opacity 1
 			.gallery_cell.is-selected, .gallery_cell.is-selected.is-prev, .gallery_cell.is-selected.is-next
-				transform(translate3d(0%,0,0))
+				+above($laptop)
+					transform(translate3d(0%,0,0))
 		.slider.forwards
 			.gallery_cell.is-next
-				transform(translate3d(100%,0,0))
-				transition(transform, 1s, ease-out)
+				+above($laptop)
+					transform(translate3d(100%,0,0))
+					transition(transform, 1s, ease-out)
 			.gallery_cell.is-selected, .gallery_cell.is-selected.is-prev, .gallery_cell.is-selected.is-next
-				transform(translate3d(0%,0,0))
+				+above($laptop)
+					transform(translate3d(0%,0,0))
 			.gallery_cell.is-prev
-				transform(translate3d(-100%,0,0))
-				transition(transform, 1.2s, linear)
+				+above($laptop)
+					transform(translate3d(-100%,0,0))
+					transition(transform, 1.2s, linear)
 		.slider.backwards
 			.gallery_cell.is-next
-				transform(translate3d(100%,0,0))
-				transition(transform, 1.2s, linear)
+				+above($laptop)
+					transform(translate3d(100%,0,0))
+					transition(transform, 1.2s, linear)
 			.gallery_cell.is-selected, .gallery_cell.is-selected.is-prev, .gallery_cell.is-selected.is-next
-				transform(translate3d(0%,0,0))
+				+above($laptop)
+					transform(translate3d(0%,0,0))
 			.gallery_cell.is-prev
-				transform(translate3d(-100%,0,0))
-				transition(transform, 1s, ease-out)
+				+above($laptop)
+					transform(translate3d(-100%,0,0))
+					transition(transform, 1s, ease-out)
 
 .album-navigation
 	display none
@@ -217,8 +226,6 @@ a, a:hover, a:visited, a:focus
 	top 12%
 	left 0
 	z-index 50
-	+below($desktop)
-		display none
 	.prev, .next
 		span(1/2)
 		//col(1/2, gutter: 20,cycle:2)
@@ -231,13 +238,15 @@ a, a:hover, a:visited, a:focus
 body.album
 	.album-navigation
 		display block
+		+below($laptop)
+			display none
 	#container .inner
 		.slider
 			display block
 		.page_content
 			display none
 	#container.infos
-		.slider
+		.slider, .album-navigation
 			display none
 		.page_content
 			display block
