@@ -2,7 +2,7 @@
 var width = $(window).width(),
     height = $(window).height(),
     $slider = null,
-    $root = '/new',
+    $root = '/estellehanania',
     $sitetitle = 'Estelle Hanania',
     $body, $container, $currentyear, $currenttitle, content, flkty, flickityFirst = true;
 $(function() {
@@ -150,18 +150,6 @@ $(function() {
                 $slider.on('lazyLoad.flickity', function(event, cellElement) {
                     $body.removeClass('loading');
                 });
-                $slider.on('cellSelect.flickity', function() {
-                    if (prevCell <= flkty.selectedIndex) {
-                        $slider.removeClass('backwards').addClass('forwards');
-                    } else {
-                        $slider.removeClass('forwards').addClass('backwards');
-                    }
-                    var adjCellPrev = $slider.flickity('getAdjacentCellElementAlone', -1);
-                    var adjCellNext = $slider.flickity('getAdjacentCellElementAlone', 1);
-                    $(adjCellPrev).removeClass('is-next').addClass('is-prev');
-                    $(adjCellNext).removeClass('is-prev').addClass('is-next');
-                    prevCell = flkty.selectedIndex;
-                });
                 $('.prev').bind('click', function(e) {
                     e.preventDefault();
                     app.goPrev($slider);
@@ -172,6 +160,18 @@ $(function() {
                 });
                 flickityFirst = false;
             }
+            $slider.on('cellSelect.flickity', function() {
+                if (prevCell <= flkty.selectedIndex) {
+                    $slider.removeClass('backwards').addClass('forwards');
+                } else {
+                    $slider.removeClass('forwards').addClass('backwards');
+                }
+                var adjCellPrev = $slider.flickity('getAdjacentCellElementAlone', -1);
+                var adjCellNext = $slider.flickity('getAdjacentCellElementAlone', 1);
+                $(adjCellPrev).removeClass('is-next').addClass('is-prev');
+                $(adjCellNext).removeClass('is-prev').addClass('is-next');
+                prevCell = flkty.selectedIndex;
+            });
         },
         goIndex: function() {
             History.pushState({
