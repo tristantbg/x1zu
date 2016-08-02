@@ -2,23 +2,23 @@
 var width = $(window).width(),
     height = $(window).height(),
     $slider = null,
-    $root = '/new',
+    $root = '/estellehanania',
     $sitetitle = 'Estelle Hanania',
     $body, $container, $currentyear, $currenttitle, content, flkty, flickityFirst = true;
+Flickity.prototype.getAdjacentCellElementAlone = function(adjacentCount, index) {
+    adjacentCount = adjacentCount || 1;
+    index = index === undefined ? this.selectedIndex : index;
+    var startIndex = index + adjacentCount;
+    var len = this.cells.length;
+    var cellElems = [];
+    var cellIndex = this.options.wrapAround ? fizzyUIUtils.modulo(startIndex, len) : startIndex;
+    var cell = this.cells[cellIndex];
+    if (cell) {
+        cellElems.push(cell.element);
+    }
+    return cellElems;
+};
 $(function() {
-    Flickity.prototype.getAdjacentCellElementAlone = function(adjacentCount, index) {
-        adjacentCount = adjacentCount || 1;
-        index = index === undefined ? this.selectedIndex : index;
-        var startIndex = index + adjacentCount;
-        var len = this.cells.length;
-        var cellElems = [];
-        var cellIndex = this.options.wrapAround ? fizzyUIUtils.modulo(startIndex, len) : startIndex;
-        var cell = this.cells[cellIndex];
-        if (cell) {
-            cellElems.push(cell.element);
-        }
-        return cellElems;
-    };
     var app = {
         init: function() {
             $(window).load(function() {
@@ -49,7 +49,7 @@ $(function() {
                         }
                     }
                 });
-                $('body').on('click', '[data-target]', function(e) {
+                $('body').on('click touchstart', '[data-target]', function(e) {
                     $el = $(this);
                     e.preventDefault();
                     if ($el.data('target') == "project") {
@@ -65,7 +65,7 @@ $(function() {
                         app.goIndex();
                     }
                 });
-                $('body').on('click', '.infos_switch', function(e) {
+                $('body').on('click touchstart', '.infos_switch', function(e) {
                     e.preventDefault();
                     $container.toggleClass('infos');
                 });
@@ -147,25 +147,25 @@ $(function() {
             flkty = $slider.data('flickity');
             var prevCell;
             if (flickityFirst) {
-                $slider.on('staticClick.flickity', function(event, pointer, cellElement, cellIndex) {
-                    if (!cellElement) {
-                        return;
-                    }
-                    app.goNext($slider);
-                });
-                $slider.on('lazyLoad.flickity', function(event, cellElement) {
-                    $body.removeClass('loading');
-                });
-                $('body').on('click', '.prev', function(e) {
+                $('body').on('click touchstart', '.prev', function(e) {
                     e.preventDefault();
                     app.goPrev($slider);
                 });
-                $('body').on('click', '.next', function(e) {
+                $('body').on('click touchstart', '.next', function(e) {
                     e.preventDefault();
                     app.goNext($slider);
                 });
                 flickityFirst = false;
             }
+            $slider.on('staticClick.flickity', function(event, pointer, cellElement, cellIndex) {
+                if (!cellElement) {
+                    return;
+                }
+                app.goNext($slider);
+            });
+            $slider.on('lazyLoad.flickity', function(event, cellElement) {
+                $body.removeClass('loading');
+            });
             $slider.on('cellSelect.flickity', function() {
                 if (prevCell <= flkty.selectedIndex) {
                     $slider.removeClass('backwards').addClass('forwards');
@@ -214,7 +214,7 @@ $(function() {
                         app.loadSlider();
                     } else if (content.type == 'page') {
                         $body.attr('class', 'leaving').addClass('page');
-                    } else if (content.type == 'index') {
+                    } else {
                         $body.attr('class', 'leaving').addClass('index');
                         $currentyear = $('.current_title .year');
                         $currenttitle = $('.current_title .project_title');
@@ -236,8 +236,8 @@ $(function() {
         deferImages: function() {
             var imgDefer = document.getElementsByTagName('img');
             for (var i = 0; i < imgDefer.length; i++) {
-                if (imgDefer[i].getAttribute('data-src')) {
-                    imgDefer[i].setAttribute('src', imgDefer[i].getAttribute('data-src'));
+                if (imgDefer[i].getAttribute('data-srcset')) {
+                    imgDefer[i].setAttribute('srcset', imgDefer[i].getAttribute('data-srcset'));
                 }
             }
         }

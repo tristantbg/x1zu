@@ -75,7 +75,7 @@
 					<span class="project_title"></span>
 				<?php elseif($page->content()->name() == 'project'): ?>
 					<span class="year"><?php echo $page->date('Y') ?></span>
-					<span class="project_title"><?php echo $page->title()->html() . ' (' . $page->category()->html() . ')' ?></span>
+					<span class="project_title"><?php echo $page->title()->html() . ' (' . $page->category()->lower()->html() . ')' ?></span>
 				<?php elseif($page->content()->name() == 'about'): ?>
 					<li><a data-scroll href="#introduction">Introduction</a></li>
 					<li><a data-scroll href="#awards">Awards</a></li>
@@ -91,6 +91,7 @@
 					<li><a href="<?php echo $pages->find('about')->url() ?>" data-target="page" data-title="<?php echo $pages->find('about')->title()->html() ?>"><?php echo $pages->find('about')->title()->html() ?></a></li>
 				<?php elseif($page->content()->name() == 'project'): ?>
 					<li class="infos_switch"><?php echo ucwords($page->textmenu()->html()) ?></li>
+					<li class="infos_switch text_open">Images</li>
 					<?php if($page->isChildOf($pages->find('index/work'))): ?>
 						<li><a href="<?php echo $site->homePage()->url() ?>" data-target="index">Close</a></li>
 					<?php else: ?>

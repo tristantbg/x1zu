@@ -11,10 +11,26 @@
 		<?php foreach ($albums as $album): ?>
 			<?php if (!$album->featured()->empty()): ?>
 
-				<div class="album_thumb" data-year="<?php echo $album->date('Y') ?>" data-title="<?php echo $album->title()->html() ?>" data-category="<?php echo $album->category()->html() ?>" data-rellax-speed="<?php echo mt_rand(-2,0) ?>">
+				<div class="album_thumb<?php echo ' '.$album->thumbsize()->html() ?>" data-year="<?php echo $album->date('Y') ?>" data-title="<?php echo $album->title()->html() ?>" data-category="<?php echo $album->category()->html() ?>" data-yvel="<?php echo mt_rand(-2,0) ?>">
 				<a data-title="<?php echo $album->title()->html() ?>" href="<?php echo $album->url() ?>" data-target="project">
-						<img data-src="<?php echo resizeOnDemand($album->featured()->toFile(), $thumbmin) ?>" height="auto" width="100%" alt="<?php  echo $album->title()->html().' — © '.$album->date("Y").', '.$site->title(); ?>">
-					</a>
+
+					<?php 
+					$image = $album->featured()->toFile();
+					$srcset = '';
+					for ($i = 100; $i <= 1300; $i += 200) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
+						?>
+
+					<img 
+					src="<?php echo resizeOnDemand($image, 500) ?>" 
+					srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
+					data-srcset="<?php echo $srcset ?>" 
+					data-sizes="auto" 
+					data-optimumx="1" 
+					class="lazyimg lazyload"
+					alt="<?php echo $album->title()->html().' — © '.$album->date("Y").', '.$site->title(); ?>" 
+					width="100%" height="auto">
+
+				</a>
 					
 				</div>
 

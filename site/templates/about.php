@@ -12,7 +12,7 @@
 		<?php if (!$book->content()->empty()): ?>
 			<span class="book">
 			<?php echo $book->text()->kt() ?>
-			<div class="img_hover"><img src="<?php echo resizeOnDemand($book->content()->toFile(), 300) ?>" width="100%" height="auto"></div>
+			<div class="img_hover"><img src="<?php echo resizeOnDemand($book->content()->toFile(), 600) ?>" width="100%" height="auto"></div>
 			</span>
 
 		<?php endif ?>
