@@ -5,9 +5,6 @@
 
 	<div class="page_content albums">
 
-	<?php //for ($i=0; $i < 20; $i++) { ?>
-	
-
 		<?php foreach ($albums as $album): ?>
 			<?php if (!$album->featured()->empty()): ?>
 
@@ -17,11 +14,10 @@
 					<?php 
 					$image = $album->featured()->toFile();
 					$srcset = '';
-					for ($i = 100; $i <= 1300; $i += 200) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
+					for ($i = 300; $i <= 1500; $i += 400) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
 						?>
 
 					<img 
-					src="<?php echo resizeOnDemand($image, 500) ?>" 
 					srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
 					data-srcset="<?php echo $srcset ?>" 
 					data-sizes="auto" 
@@ -41,8 +37,6 @@
 
 			<?php endif ?>
 		<?php endforeach ?>
-
-	<?php //} ?>
 
 	</div>
 

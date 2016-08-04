@@ -8,7 +8,7 @@
 // Media queries
 $desktop = 1600px
 $laptop = 1100px
-$tablet = 768px
+$tablet = 770px
 $mobile = 400px
 
 // Colors
@@ -111,13 +111,16 @@ img.lazyimg.lazyloaded
 			transition(opacity, 200ms)
 			opacity 1
 		header
-			z-index 100
+			z-index 1000
+			+below($tablet)
+				height 2em
 			.current_title
 				color $primary
 				mix-blend-mode difference
 				position fixed
 				top $padding
 				left 20%
+				z-index 1000
 				+below($tablet)
 					display none
 				.year
@@ -131,6 +134,7 @@ img.lazyimg.lazyloaded
 				right $padding
 				color $primary
 				mix-blend-mode difference
+				z-index 1000
 				li.infos_switch
 					cursor pointer
 				li.infos_switch.text_open
@@ -141,9 +145,13 @@ img.lazyimg.lazyloaded
 		.page_content
 			padding 2em 20% 2em
 			display inline-block
+			z-index 100
 			flowing-paragraph(2.6em)
 			+below($tablet)
-				padding 2em $padding 2em
+				display block
+				padding 0
+				margin-left $padding
+				width 'calc(100% - %s)' % ($padding * 2)
 			.img_hover
 				position absolute
 				display none
@@ -170,9 +178,12 @@ img.lazyimg.lazyloaded
 			padding 2em 6% 2em
 			flexbox()
 			flex-wrap wrap
+			z-index 100
 			+below($tablet)
+				display block
+				padding 0
+				margin-left $padding
 				width 'calc(100% - %s)' % ($padding * 2)
-				padding-left $padding
 			.album_thumb
 				float left
 				width 30.33%
