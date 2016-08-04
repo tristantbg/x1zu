@@ -43,9 +43,11 @@ body
 em
 	font-family 'PGI', 'Helvetica Neue', 'Arial', sans-serif
 
-p, h2, .exhibitions
-	font-size 1.9em
+p, h2, .about_list
+	font-size 3rem
 	line-height 1.2em
+	+below($tablet)
+		font-size 2.3rem
 
 p
 	margin-bottom 1em
@@ -116,6 +118,8 @@ img.lazyimg.lazyloaded
 				position fixed
 				top $padding
 				left 20%
+				+below($tablet)
+					display none
 				.year
 					margin-right 1em
 				li
@@ -138,6 +142,8 @@ img.lazyimg.lazyloaded
 			padding 2em 20% 2em
 			display inline-block
 			flowing-paragraph(2.6em)
+			+below($tablet)
+				padding 2em $padding 2em
 			.img_hover
 				position absolute
 				display none
@@ -149,10 +155,16 @@ img.lazyimg.lazyloaded
 			.book:hover
 				.img_hover
 					display block
-			.exhibitions
+					+below($tablet)
+						display none
+			.about_list
 				flexbox()
+				flex-flow row wrap
+				width 'calc(100% - %s)' % ($padding * 2)
 				.date
 					margin-right .3em
+				.content
+					flex-basis calc(100% - 85px)
 		.page_content.albums
 			width 88%
 			padding 2em 6% 2em
@@ -168,6 +180,13 @@ img.lazyimg.lazyloaded
 				+below($tablet)
 					width 100%
 					margin 5% 0
+				.thumb_title
+					display none
+					margin-top $padding
+					+below($tablet)
+						display block
+					.year
+						margin-right 1em
 			.album_thumb.medium
 				+above($tablet)
 					width 63.66%

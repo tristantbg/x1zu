@@ -25,10 +25,15 @@
 					srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
 					data-srcset="<?php echo $srcset ?>" 
 					data-sizes="auto" 
-					data-optimumx="1" 
+					data-optimumx="1.2" 
 					class="lazyimg lazyload"
 					alt="<?php echo $album->title()->html().' — © '.$album->date("Y").', '.$site->title(); ?>" 
 					width="100%" height="auto">
+
+					<div class="thumb_title">
+						<span class="year"><?php echo $album->date('Y') ?></span>
+						<span class="project_title"><?php echo $album->title()->html() . ' (' . $album->category()->lower()->html() . ')' ?></span>
+					</div>
 
 				</a>
 					

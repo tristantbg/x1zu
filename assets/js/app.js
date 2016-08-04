@@ -1,8 +1,9 @@
 /* globals $:false */
-var width = $(window).width(),
-    height = $(window).height(),
+var width,
+    height,
+    isMobile = false,
     $slider = null,
-    $root = '/estellehanania',
+    $root = '/new',
     $sitetitle = 'Estelle Hanania',
     $body, $container, $currentyear, $currenttitle, content, flkty, flickityFirst = true;
 Flickity.prototype.getAdjacentCellElementAlone = function(adjacentCount, index) {
@@ -29,6 +30,7 @@ $(function() {
                 app.sizeSet();
             });
             $(document).ready(function($) {
+                app.sizeSet();
                 $body = $('body');
                 $container = $('#container');
                 $currentyear = $('.current_title .year');
@@ -49,7 +51,8 @@ $(function() {
                         }
                     }
                 });
-                $('body').on('click touchstart', '[data-target]', function(e) {
+                $('body').on('click', '[data-target]', function(e) {
+                  if (!isMobile) {
                     $el = $(this);
                     e.preventDefault();
                     if ($el.data('target') == "project") {
@@ -64,8 +67,9 @@ $(function() {
                         e.preventDefault();
                         app.goIndex();
                     }
+                    }
                 });
-                $('body').on('click touchstart', '.infos_switch', function(e) {
+                $('body').on('click', '.infos_switch', function(e) {
                     e.preventDefault();
                     $container.toggleClass('infos');
                 });
@@ -86,7 +90,6 @@ $(function() {
                 smoothScroll.init({
                     speed: 1300
                 });
-                //var rellax = new Rellax('.album_thumb');
                 //esc
                 $(document).keyup(function(e) {
                     if (e.keyCode === 27) app.goIndex();
@@ -99,9 +102,7 @@ $(function() {
                 $(document).keyup(function(e) {
                     if (e.keyCode === 39 && $slider) app.goNext($slider);
                 });
-                if (Modernizr.touch) {
-                    app.mobileMenu();
-                } else {
+                if (isMobile) {} else {
                     app.mouseNav();
                 }
             });
@@ -109,6 +110,7 @@ $(function() {
         sizeSet: function() {
             width = $(window).width();
             height = $(window).height();
+            isMobile = ((width <= 768 || Modernizr.touch) ? true : false);
         },
         mouseNav: function(event) {
             $(window).mousemove(function(event) {
@@ -119,15 +121,6 @@ $(function() {
                         'top': posY + 5 + 'px',
                         'left': posX + 'px',
                     });
-                }
-            });
-        },
-        mobileMenu: function() {
-            $("ul.category .title").click(function(event) {
-                var parent = $(this).parent();
-                if (!parent.hasClass('active')) {
-                    $("ul.category.active").removeClass('active').find('ul.albums').slideToggle(800);
-                    parent.addClass('active').find('ul.albums').slideToggle(800);
                 }
             });
         },
