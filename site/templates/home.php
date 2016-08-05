@@ -14,10 +14,11 @@
 					<?php 
 					$image = $album->featured()->toFile();
 					$srcset = '';
-					for ($i = 300; $i <= 1500; $i += 400) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
+					for ($i = 300; $i <= 1100; $i += 400) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
 						?>
 
 					<img 
+					src="<?php echo resizeOnDemand($image, 200) ?>" 
 					srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
 					data-srcset="<?php echo $srcset ?>" 
 					data-sizes="auto" 

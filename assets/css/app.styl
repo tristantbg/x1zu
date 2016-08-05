@@ -150,6 +150,7 @@ img.lazyimg.lazyloaded
 			+below($tablet)
 				display block
 				padding 0
+				padding-bottom 2em
 				margin-left $padding
 				width 'calc(100% - %s)' % ($padding * 2)
 			.img_hover
@@ -182,6 +183,7 @@ img.lazyimg.lazyloaded
 			+below($tablet)
 				display block
 				padding 0
+				padding-bottom 2em
 				margin-left $padding
 				width 'calc(100% - %s)' % ($padding * 2)
 			.album_thumb
@@ -191,6 +193,10 @@ img.lazyimg.lazyloaded
 				+below($tablet)
 					width 100%
 					margin 5% 0
+				a
+					display block
+					background transparent url('../images/loader.gif') center no-repeat
+					background-size 10px
 				.thumb_title
 					display none
 					margin-top $padding
