@@ -8,9 +8,7 @@
     "history.js": "^1.8.0",
     "flickity": "^2.0.2",
     "smooth-scroll": "https://github.com/cferdinandi/smooth-scroll.git#^9.1.4",
-    "rellax": "https://github.com/dixonandmoe/rellax.git",
-    "gsap": "^1.19.0",
-    "scrollmagic": "^2.0.5",
-    "lazysizes": "^2.0.0"
+    "lazysizes": "^2.0.0",
+    "skrollr": "^0.6.30"
   }
 }

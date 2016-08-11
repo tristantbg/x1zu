@@ -1,3 +1,5 @@
+<!-- Website developed by Tristan Bagot -->
+
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
@@ -93,7 +95,7 @@
 					<li class="infos_switch"><?php echo ucwords($page->textmenu()->html()) ?></li>
 					<li class="infos_switch text_open">Images</li>
 					<?php if($page->isChildOf($pages->find('index/work'))): ?>
-						<li><a href="<?php echo $site->homePage()->url() ?>" data-target="index">Close</a></li>
+						<li><a href="<?php echo $site->homePage()->url() ?>" data-target="page">Close</a></li>
 					<?php else: ?>
 						<li><a href="<?php echo $pages->find('about')->url() ?>" data-target="page">Close</a></li>
 					<?php endif ?>
