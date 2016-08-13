@@ -29,7 +29,7 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 
 */
 
-c::set('home', 'collections/aw1516');
+c::set('home', 'collections/aw16');
 c::set('oembed.lazyvideo', true);
 c::set('typography.hyphenation', false);
 c::set('sitemap.exclude', array('error'));

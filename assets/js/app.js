@@ -21,6 +21,7 @@ $(function() {
                 $intro = $('#intro');
                 $container = $('#container');
                 $menu = $('#menu');
+                $collections = $('#menu ul');
                 $header = $('header');
                 app.sizeSet();
                 $intro.bind('click touchstart', function(event) {
@@ -64,6 +65,8 @@ $(function() {
                         }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
                     } else if ($el.data('target') == "index") {
                         e.preventDefault();
+                        $('.active').removeClass('active');
+                        $('[data-home]').addClass('active');
                         app.goIndex();
                     }
                 });
@@ -74,7 +77,7 @@ $(function() {
                 });
                 $menu.find('.menu_title').on('touchstart', $menu, function(e) {
                     e.preventDefault();
-                    $menu.find('ul').toggle();
+                    $collections.toggle();
                 });
                 //esc
                 $(document).keyup(function(e) {
