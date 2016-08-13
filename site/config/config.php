@@ -29,10 +29,11 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 
 */
 
+c::set('home', 'collections/aw1516');
 c::set('oembed.lazyvideo', true);
 c::set('typography.hyphenation', false);
 c::set('sitemap.exclude', array('error'));
-c::set('sitemap.important', array('about'));
+c::set('sitemap.important', array('information'));
 c::set('thumb.quality', 100);
 //c::set('thumbs.driver', 'im');
 c::set('sitemap.exclude', array('error','work'));

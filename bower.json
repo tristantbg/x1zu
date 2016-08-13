@@ -6,8 +6,6 @@
     "jquery": "~2.1.1",
     "underscore": "^1.8.3",
     "history.js": "^1.8.0",
-    "flickity": "^2.0.2",
-    "smooth-scroll": "https://github.com/cferdinandi/smooth-scroll.git#^9.1.4",
     "lazysizes": "^2.0.0",
     "skrollr": "^0.6.30"
   }

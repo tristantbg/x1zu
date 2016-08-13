@@ -3,22 +3,9 @@ var width,
     height,
     isMobile = false,
     $slider = null,
-    $root = '/new',
-    $sitetitle = 'Estelle Hanania',
+    $root = '/atlein',
+    $sitetitle = 'Atlein',
     $body, $container, $currentyear, $currenttitle, content, flkty, flickityFirst = true;
-Flickity.prototype.getAdjacentCellElementAlone = function(adjacentCount, index) {
-    adjacentCount = adjacentCount || 1;
-    index = index === undefined ? this.selectedIndex : index;
-    var startIndex = index + adjacentCount;
-    var len = this.cells.length;
-    var cellElems = [];
-    var cellIndex = this.options.wrapAround ? fizzyUIUtils.modulo(startIndex, len) : startIndex;
-    var cell = this.cells[cellIndex];
-    if (cell) {
-        cellElems.push(cell.element);
-    }
-    return cellElems;
-};
 $(function() {
     var app = {
         init: function() {
@@ -31,15 +18,27 @@ $(function() {
             });
             $(document).ready(function($) {
                 $body = $('body');
+                $intro = $('#intro');
                 $container = $('#container');
+                $menu = $('#menu');
                 $currentyear = $('.current_title .year');
                 $currenttitle = $('.current_title .project_title');
                 app.sizeSet();
+                $intro.click(function(event) {
+                    event.preventDefault();
+                    app.hideIntro();
+                });
+                setTimeout(function() {
+                    app.hideIntro();
+                }, 4000);
+                // $menu.hover(function(event) {
+                //   $menu.toggleClass('opened');
+                // });
                 History.Adapter.bind(window, 'statechange', function() {
                     var State = History.getState();
                     console.log(State);
                     content = State.data;
-                    if (content.type == 'project') {
+                    if (content.type == 'collection') {
                         app.loadContent(State.url, $container);
                     } else if (content.type == 'page') {
                         app.loadContent(State.url, $container);
@@ -52,58 +51,40 @@ $(function() {
                     }
                 });
                 $('body').on('click', '[data-target]', function(e) {
-                    if (!isMobile) {
-                        $el = $(this);
-                        e.preventDefault();
-                        if ($el.data('target') == "project") {
-                            History.pushState({
-                                type: 'project'
-                            }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
-                        } else if ($el.data('target') == "page") {
-                            History.pushState({
-                                type: 'page'
-                            }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
-                        } else if ($el.data('target') == "index") {
-                            e.preventDefault();
-                            app.goIndex();
-                        }
-                    }
-                });
-                $('body').on('click', '.infos_switch', function(e) {
+                    $el = $(this);
                     e.preventDefault();
-                    $container.toggleClass('infos');
-                });
-                if ($body.hasClass('album')) {
-                    app.loadSlider();
-                } else if ($body.hasClass('index')) {
-                    $('.album_thumb img').hover(function() {
-                        $el = $(this).parent().parent();
-                        $currentyear.html($el.data('year'));
-                        $currenttitle.html($el.data('title') + ' (' + $el.data('category') + ')');
-                    }, function() {
-                        if (!$body.hasClass('leaving')) {
-                            $currentyear.html('');
-                            $currenttitle.html('');
-                        }
-                    });
-                }
-                smoothScroll.init({
-                    speed: 1300,
-                    updateURL: false
+                    if ($el.data('target') == "collection") {
+                        History.pushState({
+                            type: 'collection'
+                        }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
+                    } else if ($el.data('target') == "page") {
+                        History.pushState({
+                            type: 'page'
+                        }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
+                    } else if ($el.data('target') == "index") {
+                        e.preventDefault();
+                        app.goIndex();
+                    }
                 });
                 //esc
                 $(document).keyup(function(e) {
                     if (e.keyCode === 27) app.goIndex();
                 });
                 //left
-                $(document).keyup(function(e) {
-                    if (e.keyCode === 37 && $slider) app.goPrev($slider);
-                });
-                //right
-                $(document).keyup(function(e) {
-                    if (e.keyCode === 39 && $slider) app.goNext($slider);
-                });
+                // $(document).keyup(function(e) {
+                //     if (e.keyCode === 37 && $slider) app.goPrev($slider);
+                // });
+                // //right
+                // $(document).keyup(function(e) {
+                //     if (e.keyCode === 39 && $slider) app.goNext($slider);
+                // });
             });
+        },
+        hideIntro: function() {
+            $intro.addClass('hidden');
+            setTimeout(function() {
+                $intro.remove();
+            }, 1000);
         },
         sizeSet: function() {
             width = $(window).width();
@@ -112,7 +93,8 @@ $(function() {
             if (isMobile) {} else {
                 app.mouseNav();
                 var s = skrollr.init({
-                  smoothScrollingDuration: 500,
+                    smoothScrollingDuration: 500,
+                    forceHeight: false
                 });
                 //app.scrollEffect();
             }
@@ -156,7 +138,7 @@ $(function() {
             });
             new ScrollMagic.Scene({
                 triggerElement: elem,
-                duration: rand(2,3) * height + "px"
+                duration: rand(2, 3) * height + "px"
             }).setTween(elem, {
                 y: ySpeed,
                 force3D: true
@@ -236,32 +218,18 @@ $(function() {
                 $(target).load(url + ' #container .inner', function(response) {
                     setTimeout(function() {
                         $body.removeClass('leaving');
-                        if (content.type == 'project') {
-                            $body.attr('class', 'album');
+                        if (content.type == 'collection') {
+                            $body.attr('class', 'collection');
                         }
                     }, 100);
-                    if (content.type == 'project') {
-                        $body.attr('class', 'leaving index');
-                        app.loadSlider();
+                    if (content.type == 'collection') {
+                        $body.attr('class', 'leaving collection');
+                        //app.loadSlider();
                     } else if (content.type == 'page') {
-                        $body.attr('class', 'leaving').addClass('page');
-                    } else {
-                        $body.attr('class', 'leaving').addClass('index');
-                        $currentyear = $('.current_title .year');
-                        $currenttitle = $('.current_title .project_title');
-                        $('.album_thumb img').hover(function() {
-                            $el = $(this).parent().parent();
-                            $currentyear.html($el.data('year'));
-                            $currenttitle.html($el.data('title') + ' (' + $el.data('category') + ')');
-                        }, function() {
-                            if (!$body.hasClass('leaving')) {
-                                $currentyear.html('');
-                                $currenttitle.html('');
-                            }
-                        });
-                        app.deferImages();
-                        app.sizeSet();
+                        $body.attr('class', 'leaving page');
                     }
+                    app.deferImages();
+                    app.sizeSet();
                 });
             }, 200);
         },

@@ -60,47 +60,45 @@
 	<?php endif ?>
 
 </head>
-<body <?php if($page->isHomepage()): echo ' class="index"'; elseif($page->content()->name() == 'project'): echo ' class="album"'; else: echo ' class="page"'; endif?>>
+
+<?php 
+	$collectionsPage = $pages->find('collections');
+    $collections = $collectionsPage->children()->visible();
+    $info = $pages->find('information');
+?>
+
+<body <?php if($page->content()->name() == 'collection'): echo ' class="collection"'; else: echo ' class="page"'; endif?>>
 
 	<div class="loader"></div>
 
-	<span class="site_title"><a href="<?php echo $site->homePage()->url() ?>" data-target="index"><?php echo $site->title()->html() ?></a></span>
+	<div id="intro">
+		<span><?php echo $site->title()->html() ?></span>
+		<span><?php echo $site->subtitle()->html() ?></span>
+	</div>
+
+<header>
+
+		<nav id="menu">
+			<span id="menu_title"><?php echo $collectionsPage->title()->html() ?></span>
+			<ul>
+				<?php foreach ($collections as $collection): ?>
+					<li<?php e($collection->isOpen(), ' class="active"') ?>>
+					<a href="<?php echo $collection->url() ?>" data-title="<?php echo $collection->title()->html() ?>" data-target="collection">
+						<?php echo $collection->title()->html() ?>
+					</a>
+					</li>
+				<?php endforeach ?>
+			</ul>
+		</nav>
+
+		<span id="site_title"><a href="<?php echo $site->homePage()->url() ?>" data-target="collection"><h1><?php echo $site->title()->html() ?></h1></a></span>
+
+		<span id="info_menu"><a href="<?php echo $info->url() ?>" data-title="<?php echo $info->title()->html() ?>" data-target="page"><?php echo $info->title()->html() ?></a></span>
+
+		<span class="close"><a href="<?php echo $site->homePage()->url() ?>" data-target="collection">×</a></span>
+			
+		</header>
 
 	<div id="container">
 
 	<div class="inner">
-
-		<header>
-			<span class="current_title">
-				<?php if($page->isHomepage()): ?>
-					<span class="year"></span>
-					<span class="project_title"></span>
-				<?php elseif($page->content()->name() == 'project'): ?>
-					<span class="year"><?php echo $page->date('Y') ?></span>
-					<span class="project_title"><?php echo $page->title()->html() . ' (' . $page->category()->lower()->html() . ')' ?></span>
-				<?php elseif($page->content()->name() == 'about'): ?>
-					<li><a data-scroll href="#introduction">Introduction</a></li>
-					<li><a data-scroll href="#awards">Awards</a></li>
-					<li><a data-scroll href="#books">Books</a></li>
-					<li><a data-scroll href="#exhibitions">Exhibitions</a></li>
-					<li><a data-scroll href="#texts">Texts</a></li>
-					<li><a data-scroll href="#contact">Contact</a></li>
-					<li><a data-scroll href="#blog">Blog</a></li>
-				<?php endif ?>
-			</span>
-			<ul class="nav_select">
-				<?php if($page->isHomepage()): ?>
-					<li><a href="<?php echo $pages->find('about')->url() ?>" data-target="page" data-title="<?php echo $pages->find('about')->title()->html() ?>"><?php echo $pages->find('about')->title()->html() ?></a></li>
-				<?php elseif($page->content()->name() == 'project'): ?>
-					<li class="infos_switch"><?php echo ucwords($page->textmenu()->html()) ?></li>
-					<li class="infos_switch text_open">Images</li>
-					<?php if($page->isChildOf($pages->find('index/work'))): ?>
-						<li><a href="<?php echo $site->homePage()->url() ?>" data-target="page">Close</a></li>
-					<?php else: ?>
-						<li><a href="<?php echo $pages->find('about')->url() ?>" data-target="page">Close</a></li>
-					<?php endif ?>
-				<?php elseif($page->content()->name() == 'about'): ?>
-					<li><a href="<?php echo $site->homePage()->url() ?>" data-target="index">Work</a></li>
-				<?php endif ?>
-			</ul>
-		</header>

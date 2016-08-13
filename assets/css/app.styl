@@ -3,7 +3,6 @@
 @import '_mixins.styl'
 @import 'normalize.css'
 @import '../oembed/oembed.css'
-@import './vendor/flickity.min.css'
 
 // Media queries
 $desktop = 1600px
@@ -12,54 +11,57 @@ $tablet = 770px
 $mobile = 400px
 
 // Colors
-$primary ?= #fff
-$secondary ?= #000
+$primary ?= #000
+$secondary ?= #fff
 
 // Metrics
-$padding = 10px
+$padding = 40px
 
 // CSS Reset
 global-reset()
 
-webfont('PG', 'PG', true, 'normal')
-webfont('PGI', 'PGI', true, 'italics')
+webfont('FGR', 'FGR', true, 'normal')
+webfont('FGL', 'FGL', true, 'light')
 
 body,html
 	width 100%
-	min-height 100vh
 	background-color $primary
+	color $secondary
 	-webkit-text-size-adjust 100%
 
 html
-	font-family 'PG', 'Helvetica Neue', 'Arial', sans-serif
+	font-family 'FGR', 'Helvetica Neue', 'Arial', sans-serif
 	font-size 62.5%
 
 body
 	text-rendering optimizeLegibility
 	font-smoothing()
-	font-size 1.6em
-	line-height 1em
-
-em
-	font-family 'PGI', 'Helvetica Neue', 'Arial', sans-serif
-
-p, h2, .about_list
-	font-size 3rem
-	line-height 1.2em
-	+below($tablet)
-		font-size 2.3rem
+	font-size 2rem
+	line-height 1
 
 p
 	margin-bottom 1em
+	line-height 1.1em
 
 p:last-of-type
 	margin-bottom 0
 
+h1
+	text-transform uppercase
+	font-size 4.7rem
+
 h2
+	text-align center
+	text-transform uppercase
+	line-height 1.4em
 	padding-top 1em
+	border-bottom 1px solid
 
 h2:first-of-type
 	padding-top 0
+
+strong
+	text-transform uppercase
 
 ::selection
 	background $secondary
@@ -69,6 +71,7 @@ h2:first-of-type
 
 *
 	hideselect()
+	box-sizing()
 
 a, a:hover, a:visited, a:focus
 	color inherit
@@ -94,257 +97,110 @@ img.lazyimg
 img.lazyimg.lazyloaded
 	opacity 1
 
-.site_title
+#intro
 	position fixed
-	top $padding
-	left $padding
-	color $primary
-	mix-blend-mode difference
-	z-index 100
+	flexbox()
+	justify-content space-between
+	flex-direction column
+	font-size 30vw
+	text-transform uppercase
+	top 0
+	left 0
+	z-index 10000
+	text-align center
+	padding $padding
+	background $primary
+	width 100%
+	height 100vh
+	cursor pointer
+	transition(transform,1s)
+	span
+		margin-bottom -.36em
+	
+#intro.hidden
+	transform(translateY(-100%))
+
+header
+	position fixed
+	top 0
+	left 0
+	z-index 1000
+	width 100%
+	padding $padding $padding 0
+	flexbox()
+	justify-content space-between
+	align-items flex-start
+	nav#menu
+		cursor pointer
+		transition(opacity)
+		opacity 1
+		ul
+			display none
+			li
+				display inline-block
+				margin-top .3em
+			li.active
+				border-bottom 1px solid
+	nav#menu:hover
+		ul
+			display block
+	#info_menu
+		transition(opacity)
+		opacity 1
+	.close
+		visibility hidden
+		transition()
+		opacity 0
+		position absolute
+		top $padding
+		right $padding
+		font-family 'FGL', 'Helvetica Neue', 'Arial', sans-serif
+		font-size 2.7rem
+		cursor pointer
 
 #container
+	margin-top 11rem
 	.inner
-		.current_title
-			transition(color, 200ms)
-			color $primary
-		.nav_select, .page_content, .slider
-			transition(opacity, 200ms)
+		.page_content
+			padding 0 $padding
+			transition(opacity)
 			opacity 1
-		header
-			z-index 1000
-			+below($tablet)
-				height 2em
-			.current_title
-				color $primary
-				mix-blend-mode difference
-				position fixed
-				top $padding
-				left 20%
-				z-index 1000
-				+below($tablet)
-					display none
-				.year
-					margin-right 1em
-				li
-					display inline-block
-					margin-right .4em
-			.nav_select
-				position fixed
-				top $padding
-				right $padding
-				color $primary
-				mix-blend-mode difference
-				z-index 1000
-				li.infos_switch
-					cursor pointer
-				li.infos_switch.text_open
-					display none
-				li
-					display inline-block
-					margin-left .4em
-		.page_content
-			padding 2em 20% 2em
-			display inline-block
 			z-index 100
-			flowing-paragraph(2.6em)
-			+below($tablet)
-				display block
-				padding 0
-				padding-bottom 2em
-				margin-left $padding
-				width 'calc(100% - %s)' % ($padding * 2)
-			.img_hover
-				position absolute
-				display none
-				width 300px
-				pointer-events none
-			.book
-				cursor pointer
-				display inline-block
-			.book:hover
-				.img_hover
-					display block
-					+below($tablet)
-						display none
-			.about_list
-				flexbox()
-				flex-flow row wrap
-				width 'calc(100% - %s)' % ($padding * 2)
-				.date
-					margin-right .3em
-				.content
-					flex-basis calc(100% - 85px)
-		.page_content.albums
-			width 88%
-			padding 2em 6% 2em
-			flexbox()
-			flex-wrap wrap
-			z-index 100
-			+below($tablet)
-				display block
-				padding 0
-				padding-bottom 2em
-				margin-left $padding
-				width 'calc(100% - %s)' % ($padding * 2)
-			.album_thumb
-				float left
-				width 30.33%
-				margin 0 1.5% 5%
+			.column
+				col(1/2, cycle:2)
 				+below($tablet)
-					width 100%
-					margin 5% 0
-				a
-					display block
-					background transparent url('../images/loader.gif') center no-repeat
-					background-size 10px
-				.thumb_title
-					display none
-					margin-top $padding
-					+below($tablet)
-						display block
-					.year
-						margin-right 1em
-			.album_thumb.medium
+					stack()
+			section#stockists
+				text-transform uppercase
 				+above($tablet)
-					width 43.66%
-					margin 0 10% 5%
-			.album_thumb.large
-				+above($tablet)
-					width 53.66%
-					margin 0 5% 5%
-			.album_thumb:nth-child(n)
-				+above($tablet)
-					margin-top 10%
-			.album_thumb:nth-child(2n)
-				+above($tablet)
-					margin-top 30%
-			.album_thumb:nth-child(3n)
-				+above($tablet)
-					margin-top 5%
-			.album_thumb:nth-child(2n+6)
-				+above($tablet)
-					margin-top 20%
-			.album_thumb:nth-child(3n+9)
-				+above($tablet)
-					margin-top 3%
-		.slider
-			align(vertical)
-			width 100%
-			height 74%
-			overflow hidden
-			//transition(all,800ms)
-			+below($tablet)
-				height 80%
-			.flickity-viewport, .flickity-slider
-				height 100%
-				+above($laptop)
-					transform(none !important)
-			.gallery_cell
-				height 100%
-				width 100%
-				flexbox()
-				align-items center
-				justify-content center
-				background transparent url('../images/loader.gif') center no-repeat
-				background-size 15px
-				+above($laptop)
-					left 0% !important
-					transform(translate3d(100%,0,0))
-				.content
-					width auto
-					height 100%
-					margin 0
-					padding 0
-					background $primary
-					color $primary
-					+below($tablet)
-						width initial
-						height initial
-						max-width 'calc(100% - %s * 2)' % ($padding)
-						max-height 100%
-				.content:nth-child(n+1)
-					margin-left -1px
-				.content.lazyload
-					opacity 0
-				.content.flickity-lazyloaded
-					opacity 1
-			.gallery_cell.is-selected, .gallery_cell.is-selected.is-prev, .gallery_cell.is-selected.is-next
-				+above($laptop)
-					transform(translate3d(0%,0,0))
-		.slider.forwards
-			.gallery_cell.is-next
-				+above($laptop)
-					transform(translate3d(100%,0,0))
-					transition(transform, 0.5s, ease)
-			.gallery_cell.is-selected, .gallery_cell.is-selected.is-prev, .gallery_cell.is-selected.is-next
-				+above($laptop)
-					transform(translate3d(0%,0,0))
-			.gallery_cell.is-prev
-				+above($laptop)
-					transform(translate3d(-100%,0,0))
-					transition(transform, 0.7s, ease)
-		.slider.backwards
-			.gallery_cell.is-next
-				+above($laptop)
-					transform(translate3d(100%,0,0))
-					transition(transform, 0.5s, ease)
-			.gallery_cell.is-selected, .gallery_cell.is-selected.is-prev, .gallery_cell.is-selected.is-next
-				+above($laptop)
-					transform(translate3d(0%,0,0))
-			.gallery_cell.is-prev
-				+above($laptop)
-					transform(translate3d(-100%,0,0))
-					transition(transform, 0.7s, ease)
-
-.album-navigation
-	display none
-	position fixed
-	width 100%
-	height 100%
-	top 12%
-	left 0
-	z-index 50
-	.prev, .next
-		span(1/2)
-		//col(1/2, gutter: 20,cycle:2)
-		height 88%
-	.prev:hover
-		cursor w-resize
-	.next:hover
-		cursor e-resize
-
-body.album
-	.album-navigation
-		display block
-		+below($laptop)
-			display none
-	#container .inner
-		.slider
-			display block
-		.page_content
-			display none
-	#container.infos
-		.inner
-			.slider, .album-navigation
-				display none
-			.page_content
-				display block
-			header 
-				.nav_select
-					li.infos_switch
-						display none
-					li.infos_switch.text_open
-						display inline-block
+					height calc(100vh - 140px)
+					overflow-y scroll
+					margin-bottom 0
+			section
+				span(1)
+			section.section-bloc
+				margin-bottom 1em
+			section.section-row
+				padding .8em 0 .4em
+				border-bottom 1px solid
+				.section-title
+					text-transform uppercase 
+				.column
+					span(1/2)
+			section.section-row:last-of-type
+				border-bottom none
 
 body.leaving
 	cursor wait
 	#container .inner
-		.current_title
-			color $secondary
-		.nav_select, .page_content, .slider
+		.page_content
 			opacity 0
 
-body.leaving.index
-	#container .inner
-		.current_title
-			color $primary
+body.page
+	header
+		nav#menu, #info_menu
+			opacity 0
+		.close
+			opacity 1
+			visibility visible
+		
