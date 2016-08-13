@@ -5,7 +5,7 @@ var width,
     $slider = null,
     $root = '/atlein',
     $sitetitle = 'Atlein',
-    $body, $container, $currentyear, $currenttitle, content, flkty, flickityFirst = true;
+    $body, $container, $header, content, flkty, flickityFirst = true;
 $(function() {
     var app = {
         init: function() {
@@ -21,10 +21,9 @@ $(function() {
                 $intro = $('#intro');
                 $container = $('#container');
                 $menu = $('#menu');
-                $currentyear = $('.current_title .year');
-                $currenttitle = $('.current_title .project_title');
+                $header = $('header');
                 app.sizeSet();
-                $intro.click(function(event) {
+                $intro.bind('click touchstart', function(event) {
                     event.preventDefault();
                     app.hideIntro();
                 });
@@ -54,6 +53,8 @@ $(function() {
                     $el = $(this);
                     e.preventDefault();
                     if ($el.data('target') == "collection") {
+                        $('.active').removeClass('active');
+                        $el.parent('li').addClass('active');
                         History.pushState({
                             type: 'collection'
                         }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
@@ -65,6 +66,15 @@ $(function() {
                         e.preventDefault();
                         app.goIndex();
                     }
+                });
+                $('body').on('touchstart', '[data-gps]', function(e) {
+                    e.preventDefault();
+                    $el = $(this);
+                    $el.toggleClass('displayed');
+                });
+                $menu.find('.menu_title').on('touchstart', $menu, function(e) {
+                    e.preventDefault();
+                    $menu.find('ul').toggle();
                 });
                 //esc
                 $(document).keyup(function(e) {
@@ -78,6 +88,13 @@ $(function() {
                 // $(document).keyup(function(e) {
                 //     if (e.keyCode === 39 && $slider) app.goNext($slider);
                 // });
+                $(window).scroll(function(event) {
+                    if ($(window).scrollTop() > 45) {
+                        $header.addClass('scrolled');
+                    } else {
+                        $header.removeClass('scrolled');
+                    }
+                });
             });
         },
         hideIntro: function() {
@@ -89,9 +106,8 @@ $(function() {
         sizeSet: function() {
             width = $(window).width();
             height = $(window).height();
-            isMobile = ((width <= 768 || Modernizr.touch) ? true : false);
+            isMobile = ((width <= 770 || Modernizr.touch) ? true : false);
             if (isMobile) {} else {
-                app.mouseNav();
                 var s = skrollr.init({
                     smoothScrollingDuration: 500,
                     forceHeight: false

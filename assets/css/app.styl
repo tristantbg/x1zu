@@ -36,8 +36,10 @@ html
 body
 	text-rendering optimizeLegibility
 	font-smoothing()
-	font-size 2rem
+	font-size 1.6vw
 	line-height 1
+	+below($tablet)
+		font-size 1.8rem
 
 p
 	margin-bottom 1em
@@ -49,6 +51,10 @@ p:last-of-type
 h1
 	text-transform uppercase
 	font-size 4.7rem
+	+above($desktop)
+		font-size 8rem
+	+below($tablet)
+		font-size 4rem
 
 h2
 	text-align center
@@ -89,7 +95,7 @@ a, a:hover, a:visited, a:focus
 	z-index 10000
 
 img.lazyimg
-	transition(opacity, 200ms)
+	transition(opacity)
 
 img.lazyimg
 	opacity 0
@@ -113,12 +119,29 @@ img.lazyimg.lazyloaded
 	width 100%
 	height 100vh
 	cursor pointer
-	transition(transform,1s)
+	transition(all,600ms)
+	opacity 1
+	visibility visible
+	+below($tablet)
+		padding ($padding / 2)
+		font-size 29vw
 	span
 		margin-bottom -.36em
 	
 #intro.hidden
-	transform(translateY(-100%))
+	opacity 0
+	visibility hidden
+
+div.gps
+	margin-bottom 1em
+	span.address
+		display none
+
+div.gps:hover, span.gps.displayed
+	span.address
+		display block
+	span.gps
+		display none
 
 header
 	position fixed
@@ -130,6 +153,10 @@ header
 	flexbox()
 	justify-content space-between
 	align-items flex-start
+	+below($tablet)
+		width 'calc(100% - %s)' % ($padding)
+		left ($padding / 2)
+		padding ($padding / 2) 0 0
 	nav#menu
 		cursor pointer
 		transition(opacity)
@@ -155,17 +182,28 @@ header
 		top $padding
 		right $padding
 		font-family 'FGL', 'Helvetica Neue', 'Arial', sans-serif
-		font-size 2.7rem
+		font-size 2vw
 		cursor pointer
+		+below($tablet)
+			top ($padding / 2)
+			right 0
+			font-size 2rem
 
 #container
 	margin-top 11rem
+	+above($desktop)
+		margin-top 13rem
+	+below($tablet)
+		margin-top 8rem
 	.inner
 		.page_content
-			padding 0 $padding
+			position relative
+			margin 0 $padding $padding
 			transition(opacity)
 			opacity 1
 			z-index 100
+			+below($tablet)
+				margin 0 ($padding / 2) ($padding / 2)
 			.column
 				col(1/2, cycle:2)
 				+below($tablet)
@@ -173,9 +211,11 @@ header
 			section#stockists
 				text-transform uppercase
 				+above($tablet)
-					height calc(100vh - 140px)
+					height calc(100vh - 143px)
 					overflow-y scroll
 					margin-bottom 0
+				+above($desktop)
+					height calc(100vh - 170px)
 			section
 				span(1)
 			section.section-bloc
@@ -189,6 +229,29 @@ header
 					span(1/2)
 			section.section-row:last-of-type
 				border-bottom none
+			div.image
+				span(1/2.8)
+				position absolute
+				margin-bottom $padding
+				+below($tablet)
+					position initial
+			div.left
+				left 0
+			div.midleft
+				left 33%
+				margin-left -17%
+			div.center
+				left 50%
+				margin-left -17%
+			div.midright
+				right 33%
+				margin-right -17%
+			div.right
+				right 0
+			div.image, div.left, div.midleft, div.midright, div.right
+				+below($tablet)
+					margin 0 0 ($padding / 2)
+					width 100%
 
 body.leaving
 	cursor wait
@@ -198,9 +261,14 @@ body.leaving
 
 body.page
 	header
+		+below($tablet)
+			background $primary
 		nav#menu, #info_menu
 			opacity 0
 		.close
 			opacity 1
 			visibility visible
+	header.scrolled
+		+below($tablet)
+			border-bottom 1px solid
 		
