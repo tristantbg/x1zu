@@ -150,6 +150,7 @@ header
 	z-index 1000
 	width 100%
 	#topbar
+		position absolute
 		padding $padding $padding 0
 		flexbox()
 		justify-content space-between
@@ -189,7 +190,7 @@ header
 		cursor pointer
 		+below($tablet)
 			top ($padding / 2)
-			right 0
+			right ($padding / 2)
 			font-size 2rem
 
 #container
@@ -274,6 +275,7 @@ body.page
 			opacity 1
 			display block
 	header.scrolled
-		+below($tablet)
-			border-bottom 1px solid
+		#topbar
+			+below($tablet)
+				border-bottom 1px solid
 		
