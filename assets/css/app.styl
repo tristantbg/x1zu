@@ -119,7 +119,8 @@ img.lazyimg.lazyloaded
 	width 100%
 	height 100vh
 	cursor pointer
-	transition(all,600ms)
+	transition(all,1000ms)
+	transform(translateY(0%))
 	opacity 1
 	visibility visible
 	+below($tablet)
@@ -129,8 +130,7 @@ img.lazyimg.lazyloaded
 		margin-bottom -.36em
 	
 #intro.hidden
-	opacity 0
-	visibility hidden
+	transform(translateY(-100%))
 
 div.gps
 	margin-bottom 1em
