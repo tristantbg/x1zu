@@ -76,28 +76,28 @@
 		<span><?php echo $site->subtitle()->html() ?></span>
 	</div>
 
-<header>
+	<header>
+		<span id="topbar">
+				<nav id="menu">
+					<span id="menu_title"><?php echo $collectionsPage->title()->html() ?></span>
+					<ul>
+						<?php foreach ($collections as $collection): ?>
+							<li<?php e($collection->isOpen(), ' class="active"'); e($collection->isHomepage(), ' data-home') ?>>
+							<a href="<?php echo $collection->url() ?>" data-title="<?php echo $collection->title()->html() ?>" data-target="collection">
+								<?php echo $collection->title()->html() ?>
+							</a>
+						</li>
+					<?php endforeach ?>
+				</ul>
+			</nav>
 
-		<nav id="menu">
-			<span id="menu_title"><?php echo $collectionsPage->title()->html() ?></span>
-			<ul>
-				<?php foreach ($collections as $collection): ?>
-					<li<?php e($collection->isOpen(), ' class="active"'); e($collection->isHomepage(), ' data-home') ?>>
-					<a href="<?php echo $collection->url() ?>" data-title="<?php echo $collection->title()->html() ?>" data-target="collection">
-						<?php echo $collection->title()->html() ?>
-					</a>
-					</li>
-				<?php endforeach ?>
-			</ul>
-		</nav>
+			<span id="site_title"><a href="<?php echo $site->homePage()->url() ?>" data-target="index"><h1><?php echo $site->title()->html() ?></h1></a></span>
 
-		<span id="site_title"><a href="<?php echo $site->homePage()->url() ?>" data-target="index"><h1><?php echo $site->title()->html() ?></h1></a></span>
+			<span id="info_menu"><a href="<?php echo $info->url() ?>" data-title="<?php echo $info->title()->html() ?>" data-target="page"><?php echo $info->title()->html() ?></a></span>
+		</span>
+		<span class="close"><a href="<?php echo $site->homePage()->url() ?>" data-target="index">×</a></span>
 
-		<span id="info_menu"><a href="<?php echo $info->url() ?>" data-title="<?php echo $info->title()->html() ?>" data-target="page"><?php echo $info->title()->html() ?></a></span>
-
-		<span class="close"><a href="<?php echo $site->homePage()->url() ?>" data-target="collection">×</a></span>
-			
-		</header>
+	</header>
 
 	<div id="container">
 

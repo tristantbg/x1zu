@@ -237,15 +237,14 @@ $(function() {
                 $(target).load(url + ' #container .inner', function(response) {
                     setTimeout(function() {
                         $body.removeClass('leaving');
-                        if (content.type == 'collection') {
-                            $body.attr('class', 'collection');
-                        }
                     }, 100);
                     if (content.type == 'collection') {
                         $body.attr('class', 'leaving collection');
                         //app.loadSlider();
                     } else if (content.type == 'page') {
                         $body.attr('class', 'leaving page');
+                    } else {
+                        $body.attr('class', 'leaving collection');
                     }
                     app.deferImages();
                     app.sizeSet();

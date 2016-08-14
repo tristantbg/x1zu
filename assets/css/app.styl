@@ -149,33 +149,36 @@ header
 	left 0
 	z-index 1000
 	width 100%
-	padding $padding $padding 0
-	flexbox()
-	justify-content space-between
-	align-items flex-start
-	+below($tablet)
-		width 'calc(100% - %s)' % ($padding)
-		left ($padding / 2)
-		padding ($padding / 2) 0 0
-	nav#menu
-		cursor pointer
-		transition(opacity)
-		opacity 1
-		ul
-			display none
-			li
-				display inline-block
-				margin-top .3em
-			li.active
-				border-bottom 1px solid
-	nav#menu:hover
-		ul
-			display block
-	#info_menu
-		transition(opacity)
-		opacity 1
+	#topbar
+		padding $padding $padding 0
+		flexbox()
+		justify-content space-between
+		align-items flex-start
+		+below($tablet)
+			width 'calc(100% - %s)' % ($padding)
+			left ($padding / 2)
+			padding ($padding / 2) 0 0
+		nav#menu
+			cursor pointer
+			transition()
+			opacity 1
+			visibility visible
+			ul
+				display none
+				li
+					display inline-block
+					margin-top .3em
+				li.active
+					border-bottom 1px solid
+		nav#menu:hover
+			ul
+				display block
+		#info_menu
+			transition()
+			opacity 1
+			visibility visible
 	.close
-		visibility hidden
+		display none
 		transition()
 		opacity 0
 		position absolute
@@ -230,7 +233,7 @@ header
 			section.section-row:last-of-type
 				border-bottom none
 			div.image
-				span(1/2.8)
+				span(1/2.9)
 				position absolute
 				margin-bottom $padding
 				+below($tablet)
@@ -261,13 +264,15 @@ body.leaving
 
 body.page
 	header
-		+below($tablet)
-			background $primary
-		nav#menu, #info_menu
-			opacity 0
+		#topbar
+			+below($tablet)
+				background $primary
+			nav#menu, #info_menu
+				opacity 0
+				visibility hidden
 		.close
 			opacity 1
-			visibility visible
+			display block
 	header.scrolled
 		+below($tablet)
 			border-bottom 1px solid
