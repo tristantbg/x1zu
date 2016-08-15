@@ -10,7 +10,7 @@
 		srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
 		data-srcset="<?php echo $srcset ?>" 
 		data-sizes="auto" 
-		data-optimumx="1" 
+		data-optimumx="1.5" 
 		class="lazyimg lazyload"
 		alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" 
 		width="100%" height="auto">

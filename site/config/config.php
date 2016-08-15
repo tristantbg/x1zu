@@ -32,12 +32,11 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 c::set('home', 'collections/aw16');
 c::set('oembed.lazyvideo', true);
 c::set('typography.hyphenation', false);
+c::set('typography.ordinal.suffix', false);
 c::set('sitemap.exclude', array('error'));
 c::set('sitemap.important', array('information'));
 c::set('thumb.quality', 100);
 //c::set('thumbs.driver', 'im');
-c::set('sitemap.exclude', array('error','work'));
-c::set('sitemap.important', array('contact'));
 c::set('routes', array(
 	array(
 		'pattern' => 'index/(:any)',

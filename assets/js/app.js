@@ -5,7 +5,7 @@ var width,
     $slider = null,
     $root = '/atlein',
     $sitetitle = 'Atlein',
-    $body, $container, $header, content, flkty, flickityFirst = true;
+    $body, $intro, $menu, $collections, $container, $header, content, flkty, flickityFirst = true;
 $(function() {
     var app = {
         init: function() {
@@ -111,10 +111,10 @@ $(function() {
             height = $(window).height();
             isMobile = ((width <= 770 || Modernizr.touch) ? true : false);
             if (isMobile) {} else {
-                var s = skrollr.init({
-                    smoothScrollingDuration: 500,
-                    forceHeight: false
-                });
+                // var s = skrollr.init({
+                //     smoothScrollingDuration: 500,
+                //     forceHeight: false
+                // });
                 //app.scrollEffect();
             }
         },
@@ -271,6 +271,3 @@ function arrayRand(myArray) {
     var rand = myArray[Math.floor(Math.random() * myArray.length)];
     return rand;
 }
-
-function init() {}
-init();

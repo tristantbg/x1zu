@@ -133,9 +133,11 @@ img.lazyimg.lazyloaded
 	visibility hidden
 
 div.gps
-	margin-bottom 1em
+	padding-bottom 1em
+	cursor default
 	span.address
 		display none
+		text-transform initial
 
 div.gps:hover, span.gps.displayed
 	span.address
@@ -266,6 +268,8 @@ body.leaving
 
 body.page
 	header
+		+below($tablet)
+			background $primary
 		#topbar
 			+below($tablet)
 				background $primary
