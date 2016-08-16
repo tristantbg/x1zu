@@ -3,7 +3,7 @@ var width,
     height,
     isMobile = false,
     $slider = null,
-    $root = '/atlein',
+    $root = '',
     $sitetitle = 'Atlein',
     $body, $intro, $menu, $collections, $container, $header, content, flkty, flickityFirst = true;
 $(function() {

@@ -17,6 +17,6 @@
 		
 		<noscript>
 			<img src="<?= $image->url() ?>" alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" 
-		width="100%" height="auto">
+		width="100%" height="auto" />
 		</noscript>
 </div>
