@@ -8,6 +8,7 @@
 
 		<img 
 		srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
+		data-src="<?php echo resizeOnDemand($image, 1200) ?>" 
 		data-srcset="<?php echo $srcset ?>" 
 		data-sizes="auto" 
 		data-optimumx="1.5" 
