@@ -98,6 +98,7 @@ $(function() {
                         $header.removeClass('scrolled');
                     }
                 });
+                window.viewportUnitsBuggyfill.init();
             });
         },
         hideIntro: function() {
