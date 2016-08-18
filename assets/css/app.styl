@@ -96,8 +96,6 @@ a, a:hover, a:visited, a:focus
 
 img.lazyimg
 	transition(opacity)
-
-img.lazyimg
 	opacity 0
 
 img.lazyimg.lazyloaded
@@ -240,6 +238,8 @@ header
 				span(1/2.9)
 				position absolute
 				margin-bottom $padding
+				background $primary url('../images/loader.gif') center no-repeat
+				background-size 15px
 				+below($tablet)
 					position initial
 			div.left
