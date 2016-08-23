@@ -20,9 +20,11 @@
 	<div class="column">
 	<h2 class="column_title">Stockists</h2>
 	<section id="stockists" class="section-bloc">
-		<?php foreach($page->stockists()->toStructure() as $section): ?>
-  			<?php snippet('builder/' . $section->_fieldset(), array('data' => $section)) ?>
-		<?php endforeach ?>
+		<div class="hidescroll">
+			<?php foreach($page->stockists()->toStructure() as $section): ?>
+  				<?php snippet('builder/' . $section->_fieldset(), array('data' => $section)) ?>
+			<?php endforeach ?>
+		</div>
 	</section>
 	</div>
 	
