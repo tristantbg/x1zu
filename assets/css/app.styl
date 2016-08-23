@@ -85,9 +85,10 @@ a, a:hover, a:visited, a:focus
 	cursor pointer
 
 .hidescroll
-	overflow-y scroll
-	margin-right -16px
-	height 100%
+	+above($tablet)
+		overflow-y scroll
+		margin-right -16px
+		height 100%
 
 .loader
 	position fixed
