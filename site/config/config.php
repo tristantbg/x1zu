@@ -46,7 +46,7 @@ c::set('routes', array(
 		}
 		),
 	array(
-		'pattern' => 'index',
+		'pattern' => 'collections',
 		'action'  => function($uri,$uid) {
 			$page = site()->homePage();
 			go($page);
