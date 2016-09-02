@@ -13,7 +13,9 @@
     ga('send', 'pageview');
   </script>
 <?php endif ?>
-
+	<script>
+		var $sitetitle = '<?= $site->title()->html() ?>';
+	</script>
 	<?php
 	echo js(array('assets/js/build/plugins.js', 'assets/js/build/app.min.js'));
 	?>

@@ -1,32 +1,45 @@
 <?php snippet('header') ?>
 
+<?php 
+	$sections = $pages->find('info')->children();
+?>
+
 <div id="information" class="page_content">
 	
-	<div class="column">
-	<section class="section-bloc">
-		<h2>About</h2>
-		<section class="section-row"><?php echo $page->text()->kt() ?></section>
+	<section id="about" class="column right">
+		<?php echo $page->text()->kt() ?>
 	</section>
 
-	<section class="section-bloc">
-		<h2>Contact</h2>
-		<?php foreach($page->contact()->toStructure() as $section): ?>
-  			<?php snippet('builder/' . $section->_fieldset(), array('data' => $section)) ?>
-		<?php endforeach ?>
-	</section>
+	<?php foreach ($sections as $section): ?>
 
-	</div>
+	<?php $subsections = $section->children() ?>
 
-	<div class="column">
-	<h2 class="column_title">Stockists</h2>
-	<section id="stockists" class="section-bloc">
-		<div class="hidescroll">
-			<?php foreach($page->stockists()->toStructure() as $section): ?>
-  				<?php snippet('builder/' . $section->_fieldset(), array('data' => $section)) ?>
+	<section id="<?= tagslug($section->title()) ?>">
+		<span class="section-title">
+			<h2><?= $section->title()->html() ?></h2>
+		</span>
+		<span class="subsections">
+			<?php foreach($subsections as $subsection): ?>
+				<span class="subsection">
+		  			<span class="column">
+		  				<h2><?= $subsection->title()->html() ?></h2>
+		  			</span>
+		  			<span class="entries">
+			  			<?php foreach($subsection->entries()->toStructure() as $entry): ?>
+				  			<span class="column">
+				  				<?= $entry->title()->html() ?>
+				  			</span>
+				  			<span class="column">
+				  				<?= $entry->text()->kt() ?>
+				  			</span>
+			  			<?php endforeach ?>
+		  			</span>
+	  			</span>
 			<?php endforeach ?>
-		</div>
+		</span>
 	</section>
-	</div>
+
+	<?php endforeach ?>
 	
 </div>
 

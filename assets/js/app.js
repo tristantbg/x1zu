@@ -3,8 +3,7 @@ var width,
     height,
     isMobile = false,
     $slider = null,
-    $root = '',
-    $sitetitle = 'Atlein',
+    $root = '/xuzhi',
     $body, $intro, $menu, $collections, $container, $header, content, flkty, flickityFirst = true;
 $(function() {
     var app = {
@@ -53,9 +52,9 @@ $(function() {
                 $('body').on('click', '[data-target]', function(e) {
                     $el = $(this);
                     e.preventDefault();
+                    $('.active').removeClass('active');
+                    $el.parent('li').addClass('active');
                     if ($el.data('target') == "collection") {
-                        $('.active').removeClass('active');
-                        $el.parent('li').addClass('active');
                         History.pushState({
                             type: 'collection'
                         }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
@@ -65,8 +64,6 @@ $(function() {
                         }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
                     } else if ($el.data('target') == "index") {
                         e.preventDefault();
-                        $('.active').removeClass('active');
-                        $('[data-home]').addClass('active');
                         app.goIndex();
                     }
                 });

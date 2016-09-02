@@ -11,17 +11,17 @@ $tablet = 770px
 $mobile = 400px
 
 // Colors
-$primary ?= #000
-$secondary ?= #fff
+$primary ?= #fff
+$secondary ?= #000
 
 // Metrics
-$padding = 40px
+$padding = 20px
 
 // CSS Reset
 global-reset()
+//edit()
 
-webfont('FGR', 'FGR', true, 'normal')
-webfont('FGL', 'FGL', true, 'light')
+webfont('BS', 'BS', true, 'normal')
 
 body,html
 	width 100%
@@ -32,53 +32,41 @@ body,html
 		display none
 
 html
-	font-family 'FGR', 'Helvetica Neue', 'Arial', sans-serif
+	font-family 'BS', 'Helvetica Neue', 'Arial', sans-serif
 	font-size 62.5%
 
 body
 	text-rendering optimizeLegibility
 	font-smoothing()
-	font-size 1.6vw
+	font-size 1.3em
+	letter-spacing .1em
 	line-height 1
 	+below($tablet)
 		font-size 1.8rem !important
 
 p
 	margin-bottom 1em
-	line-height 1.1em
 
 p:last-of-type
 	margin-bottom 0
 
-h1
+h1, h2
+	hideselect()
 	text-transform uppercase
-	font-size 4.7rem
-	+above($desktop)
-		font-size 8rem
-	+below($tablet)
-		font-size 4rem
-
-h2
-	text-align center
-	text-transform uppercase
-	line-height 1.4em
-	padding-top 1em
-	border-bottom 1px solid
-
-h2:first-of-type
-	padding-top 0
 
 strong
 	text-transform uppercase
 
+li
+	list-style none
+
 ::selection
-	background $secondary
+	background lightgrey
 	
 ::-moz-selection
-	background $secondary
+	background lightgrey
 
 *
-	hideselect()
 	box-sizing()
 
 a, a:hover, a:visited, a:focus
@@ -138,20 +126,8 @@ img.lazyimg.lazyloaded
 	opacity 0
 	visibility hidden
 
-div.gps
-	padding-bottom 1em
-	cursor default
-	span.address
-		display none
-		text-transform initial
-
-div.gps:hover, span.gps.displayed
-	span.address
-		display block
-	span.gps
-		display none
-
 header
+	hideselect()
 	position fixed
 	top 0
 	left 0
@@ -161,49 +137,29 @@ header
 		width 100%
 		position absolute
 		padding $padding $padding 0
-		flexbox()
-		justify-content space-between
-		align-items flex-start
 		+below($tablet)
 			width 'calc(100% - %s)' % ($padding)
 			left ($padding / 2)
 			padding ($padding / 2) 0 0
+		#site_title
+			position absolute
+			top $padding
+			left $padding
 		nav#menu
-			cursor pointer
-			transition()
-			opacity 1
-			visibility visible
+			position absolute
+			top $padding
+			left 50%
 			ul
-				display none
 				li
 					display inline-block
-					margin-top .3em
+					margin-right .3em
 				li.active
 					border-bottom 1px solid
-		nav#menu:hover
-			ul
-				display block
-		#info_menu
-			transition()
-			opacity 1
-			visibility visible
-	.close
-		display none
-		transition()
-		opacity 0
-		position absolute
-		top $padding
-		right $padding
-		font-family 'FGL', 'Helvetica Neue', 'Arial', sans-serif
-		font-size 2vw
-		cursor pointer
-		+below($tablet)
-			top ($padding / 2)
-			right ($padding / 2)
-			font-size 2rem !important
 
 #container
-	margin-top 11rem
+	margin-top 6rem
+	padding 0 $padding $padding
+	line-height 1.6em
 	+above($desktop)
 		margin-top 13rem
 	+below($tablet)
@@ -211,37 +167,35 @@ header
 	.inner
 		.page_content
 			position relative
-			margin 0 $padding $padding
 			transition(opacity)
 			opacity 1
 			z-index 100
 			+below($tablet)
 				margin 0 ($padding / 2) ($padding / 2)
 			.column
-				col(1/2, cycle:2)
+				span(1/2)
 				+below($tablet)
 					stack()
-			section#stockists
-				text-transform uppercase
+			.column.right
 				+above($tablet)
-					height calc(100vh - 143px)
-					overflow hidden
-					margin-bottom 0
-				+above($desktop)
-					height calc(100vh - 170px)
-			section
+					span(1/2, offset: 1/2)
+			section, .subsection
 				span(1)
-			section.section-bloc
-				margin-bottom 1.64em
-			section.section-row
-				padding .8em 0 .4em
-				border-bottom 1px solid
-				.section-title
-					text-transform uppercase 
+				margin-bottom 1.3em
+			section:last-of-type, .subsection:last-of-type
+				margin-bottom 0
+			span.season
+				span(1/10)
+			span.section-title
+				span(1/4)
+			span.subsections
+				span(3/4)
 				.column
-					span(1/2)
-			section.section-row:last-of-type
-				border-bottom none
+					span(1/3)
+				.entries
+					span(2/3)
+					.column
+						span(1/2)
 			div.image
 				span(1/2.9)
 				position absolute
@@ -281,12 +235,6 @@ body.page
 		#topbar
 			+below($tablet)
 				background $primary
-			nav#menu, #info_menu
-				opacity 0
-				visibility hidden
-		.close
-			opacity 1
-			display block
 	header.scrolled
 		#topbar
 			+below($tablet)

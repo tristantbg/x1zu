@@ -33,20 +33,21 @@ c::set('home', 'collections/aw16');
 c::set('oembed.lazyvideo', true);
 c::set('typography.hyphenation', false);
 c::set('typography.ordinal.suffix', false);
+c::set('typography.fractions', false);
 c::set('sitemap.exclude', array('error'));
 c::set('sitemap.important', array('information'));
 c::set('thumb.quality', 100);
 //c::set('thumbs.driver', 'im');
 c::set('routes', array(
 	array(
-		'pattern' => 'index/(:any)',
+		'pattern' => 'info/(:any)',
 		'action'  => function($uri,$uid) {
 			$page = site()->homePage();
 			go($page);
 		}
 		),
 	array(
-		'pattern' => 'collections',
+		'pattern' => 'info/(:any)/(:any)',
 		'action'  => function($uri,$uid) {
 			$page = site()->homePage();
 			go($page);

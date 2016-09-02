@@ -9,6 +9,32 @@ fields:
   title:
     label: Title
     type:  text
+    width: 1/2
+  category:
+    label: Category
+    type:  text
+    width: 1/2
+  collabtitle:
+    label: Collaboration title
+    type: text
+  year:
+    label: Year
+    type:  text
+    width: 1/3
+  season:
+    label: Season
+    type: select
+    width: 1/3
+    default: ss
+    options:
+      ss: Spring Summer
+      aw: Autumn Winter
+  collabtoggle:
+    label: Collaboration
+    type: fieldtoggle
+    on: collabtitle
+    default: false
+    width: 1/3
   gallery:
     label: Gallery
     type: builder
