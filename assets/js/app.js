@@ -73,10 +73,20 @@ $(function() {
                     app.slideNext();
                 });
                 $('body').on('mouseenter', ".addresslink", function(e) {
+                    e.preventDefault();
                     $(this).parents('.entries').find('.addresslink').addClass('hover');
                 });
                 $('body').on('mouseleave', ".addresslink", function(e) {
+                    e.preventDefault();
                     $(this).parents('.entries').find('.addresslink').removeClass('hover');
+                });
+                $('body').on('mouseenter', "[data-image]", function(e) {
+                    e.preventDefault();
+                    $('.img_hover img').attr('src', $(this).data('image'));
+                });
+                $('body').on('mouseleave', "[data-image]", function(e) {
+                    e.preventDefault();
+                    $('.img_hover img').attr('src', 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
                 });
                 //esc
                 $(document).keyup(function(e) {

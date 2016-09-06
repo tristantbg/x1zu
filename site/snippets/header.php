@@ -78,7 +78,7 @@
 	<header>
 			<span id="site_title" class="animate">
 				<a href="<?php echo $site->homePage()->url() ?>" data-target="index">
-					<h1><?php echo $site->title()->html() ?></h1>
+					<h1>Xu <span class="type-offset">Zhi</span></h1>
 				</a>
 			</span>
 

@@ -10,9 +10,15 @@ fields:
   title:
     label: Title
     type:  text
-  text:
-    label: About
+  brand:
+    label: The Brand
     type:  textarea
+  designer:
+    label: The Designer
+    type: textarea
+  awards:
+    label: Awards
+    type: textarea
   socials:
     label: Social Links
     type: structure

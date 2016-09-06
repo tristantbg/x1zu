@@ -6,8 +6,39 @@
 
 <div class="page_content">
 	
-	<section id="about" class="column right animate">
-		<?php echo $page->text()->kt() ?>
+	<section id="about" class="animate">
+		<span class="section-title">
+			<h2>About</h2>
+		</span>
+		<span class="subsections">
+			<span class="subsection">
+				<span class="column">
+			  		<h2>The Brand</h2>
+			  	</span>
+			  	<span class="entries">
+			  		<?= $page->brand()->kt() ?>
+			  	</span>
+			</span>
+			<span class="subsection">
+				<span class="column">
+			  		<h2>The Designer</h2>
+			  	</span>
+			  	<span class="entries">
+			  		<?= $page->designer()->kt() ?>
+			  	</span>
+			</span>
+		</span>	
+	</section>
+
+	<section id="awards" class="animate">
+		<span class="section-title">
+			<h2>Awards</h2>
+		</span>
+		<span class="subsections">
+		<span class="column right">
+			<?= $page->awards()->kt() ?>
+		</span>
+		</span>
 	</section>
 
 	<?php foreach ($sections as $section): ?>

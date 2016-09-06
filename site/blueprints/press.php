@@ -24,7 +24,7 @@ fields:
       		<td style="width:25%">{{title}}</td>
       		<td style="width:25%">{{date}}</td>
       		<td style="width:25%">{{link}}</td>
-      		<td style="width:25%"><img src="{{_fileUrl}}{{content}}" width="60px"/><br>{{content}}</td>
+      		<td style="width:25%"><img src="{{_fileUrl}}{{image}}" width="60px"/><br>{{image}}</td>
       	</tr>
       </table>
     fields:
@@ -40,7 +40,7 @@ fields:
         label: Link
         type:  url
         width: 1/2
-      content:
+      image:
         label: Image
         type:  image
         width: 1/2
