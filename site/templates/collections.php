@@ -6,12 +6,10 @@
 ?>
 
 <div class="page_content">
-	<section id="collections" class="column right">
-		<ul>
+	<section id="collections" class="column right animate">
 			<?php foreach ($collections as $collection): ?>
 				<?php if($collection->collabtoggle() == 'false'): ?>
-					<li>
-						<a href="<?php echo $collection->url() ?>" data-title="<?php echo $collection->title()->html() ?>" data-target="collection">
+					<a href="<?php echo $collection->url() ?>" data-title="<?php echo $collection->title()->html() ?>" data-target="collection">
 							<div class="column">
 								<span class="season"><strong><?= $collection->season() ?></strong></span>
 								<span class="date"><strong><?= $collection->year()->html() ?></strong></span>
@@ -19,13 +17,11 @@
 							<div class="column">
 								<span class="season"><?= $collection->category()->html() ?></span>
 							</div>
-						</a>
-					</li>
+							</a>
 				<?php endif ?>
 			<?php endforeach ?>
-		</ul>
 	</section>
-	<section id="collaborations">
+	<section id="collaborations" class="animate">
 		<div class="column">
 			<div class="column">
 				<h2>Collaborations</h2>

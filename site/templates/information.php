@@ -1,12 +1,12 @@
 <?php snippet('header') ?>
 
 <?php 
-	$sections = $pages->find('info')->children();
+	$sections = $page->children();
 ?>
 
-<div id="information" class="page_content">
+<div class="page_content">
 	
-	<section id="about" class="column right">
+	<section id="about" class="column right animate">
 		<?php echo $page->text()->kt() ?>
 	</section>
 
@@ -14,7 +14,7 @@
 
 	<?php $subsections = $section->children() ?>
 
-	<section id="<?= tagslug($section->title()) ?>">
+	<section id="<?= tagslug($section->title()) ?>" class="animate">
 		<span class="section-title">
 			<h2><?= $section->title()->html() ?></h2>
 		</span>
@@ -27,9 +27,20 @@
 		  			<span class="entries">
 			  			<?php foreach($subsection->entries()->toStructure() as $entry): ?>
 				  			<span class="column">
-				  				<?= $entry->title()->html() ?>
+				  				<?php if(!$entry->addresslink()->empty()): ?>
+				  				<a class="addresslink" href="<?= $entry->addresslink() ?>" target="_blank">
+				  					<?= $entry->title()->html() ?>
+				  				</a>
+				  				<?php else: echo $entry->title()->html(); endif ?>
 				  			</span>
 				  			<span class="column">
+				  				<span class="address">
+						  			<?php if(!$entry->addresslink()->empty()): ?>
+						  				<a class="addresslink" href="<?= $entry->addresslink() ?>" target="_blank">
+						  					<?= $entry->address()->kt() ?>
+						  				</a>
+						  			<?php else: echo $entry->address()->kt(); endif ?>
+						  		</span>
 				  				<?= $entry->text()->kt() ?>
 				  			</span>
 			  			<?php endforeach ?>
@@ -40,6 +51,26 @@
 	</section>
 
 	<?php endforeach ?>
+
+	<section id="socials" class="animate">
+		<span class="section-title">
+			<h2>Follow</h2>
+		</span>
+		<span class="subsections">
+			<span class="subsection">
+				<span class="column">
+					&nbsp;
+				</span>
+				<span class="entries">
+					<span class="column">
+						<?php foreach($page->socials()->yaml() as $social): ?>
+							<a href="<?php echo $social['link'] ?>" target="_blank"><?php echo $social['name'] ?></a><br />
+						<?php endforeach ?>
+					</span>
+				</span>
+			</span>
+		</span>
+	</section>
 	
 </div>
 

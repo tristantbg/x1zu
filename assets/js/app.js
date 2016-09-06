@@ -1,7 +1,10 @@
 /* globals $:false */
 var width,
     height,
+    transition = 400,
     isMobile = false,
+    isSliding = false,
+    slideCount = 1,
     $slider = null,
     $root = '/xuzhi',
     $body, $intro, $menu, $collections, $container, $header, content, flkty, flickityFirst = true;
@@ -11,6 +14,7 @@ $(function() {
             $(window).load(function() {
                 app.deferImages();
                 $(".loader").fadeOut(300);
+                app.displayContent(false);
             });
             $(window).resize(function(event) {
                 app.sizeSet();
@@ -30,9 +34,6 @@ $(function() {
                 setTimeout(function() {
                     app.hideIntro();
                 }, 4000);
-                // $menu.hover(function(event) {
-                //   $menu.toggleClass('opened');
-                // });
                 History.Adapter.bind(window, 'statechange', function() {
                     var State = History.getState();
                     console.log(State);
@@ -67,14 +68,15 @@ $(function() {
                         app.goIndex();
                     }
                 });
-                $('body').on('touchstart', '[data-gps]', function(e) {
+                $('body').on('click touchstart', ".slider", function(e) {
                     e.preventDefault();
-                    $el = $(this);
-                    $el.toggleClass('displayed');
+                    app.slideNext();
                 });
-                $menu.find('.menu_title').on('touchstart', $menu, function(e) {
-                    e.preventDefault();
-                    $collections.toggle();
+                $('body').on('mouseenter', ".addresslink", function(e) {
+                    $(this).parents('.entries').find('.addresslink').addClass('hover');
+                });
+                $('body').on('mouseleave', ".addresslink", function(e) {
+                    $(this).parents('.entries').find('.addresslink').removeClass('hover');
                 });
                 //esc
                 $(document).keyup(function(e) {
@@ -88,14 +90,66 @@ $(function() {
                 // $(document).keyup(function(e) {
                 //     if (e.keyCode === 39 && $slider) app.goNext($slider);
                 // });
-                $(window).scroll(function(event) {
-                    if ($(window).scrollTop() > 45) {
-                        $header.addClass('scrolled');
-                    } else {
-                        $header.removeClass('scrolled');
-                    }
-                });
+                // $(window).scroll(function(event) {
+                //     if ($(window).scrollTop() > 45) {
+                //         $header.addClass('scrolled');
+                //     } else {
+                //         $header.removeClass('scrolled');
+                //     }
+                // });
                 window.viewportUnitsBuggyfill.init();
+            });
+        },
+        slideNext: function() {
+            if (!isSliding) {
+                isSliding = true;
+                var next = $(".slider .image:not('.displayed'):eq(0)").add(".slider .image:not('.displayed'):eq(1)");
+                if (next.length < 1) {
+                    var imgs = $(".slider .image");
+                    imgs.not(':eq(0), :eq(1), :eq(-1), :eq(-2)').attr('class', 'image');
+                    imgs.slice(0, 2).attr('class', 'image animate displayed');
+                    var reset = $(".slider .image:eq(-1)").add(".slider .image:eq(-2)");
+                    reset.eq(0).removeClass('displayed');
+                    app.updateCounter(true);
+                    setTimeout(function() {
+                        reset.eq(1).removeClass('displayed');
+                    }, transition);
+                    setTimeout(function() {
+                        reset.attr('class', 'image');
+                        isSliding = false;
+                    }, transition * 2);
+                } else {
+                    next.addClass('animate');
+                    app.displayContent(true);
+                }
+            }
+        },
+        updateCounter: function(reset) {
+            if (reset) {
+                slideCount = 1;
+            } else {
+                slideCount += 2;
+            }
+            $('.counter').html(slideCount + '–' + (slideCount + 1));
+        },
+        displayContent: function(slider) {
+            var time = 0;
+            var elems = $('.animate:not(".displayed")');
+            count = elems.length;
+            elems.each(function(index) {
+                var el = $(this);
+                setTimeout(function() {
+                    el.addClass('displayed');
+                    if (slider) {
+                        if (index == count - 1) {
+                            $(".slider .image.animate.displayed:not('.hide')").slice(0, 2).addClass('hide');
+                            isSliding = false;
+                        } else {
+                            app.updateCounter();
+                        }
+                    }
+                }, time);
+                time += transition;
             });
         },
         hideIntro: function() {
@@ -128,51 +182,17 @@ $(function() {
                 }
             });
         },
-        scrollEffect: function() {
-            parallax = new ScrollMagic.Controller({
-                globalSceneOptions: {
-                    triggerHook: 'onEnter'
-                }
-            });
-            var $albums = document.querySelectorAll(".album_thumb");
-            for (var i = 0; i < $albums.length; i++) {
-                app.placeElem($albums[i]);
-            }
-        },
-        placeElem: function(elem) {
-            //     if (elem.getAttribute("data-ratio") > 1) {
-            //         elemW = 100;
-            //     } else {
-            //         elemW = rand(85, 93);
-            //     }
-            //     rotationStart = rand(-10, 10);
-            //     rotationEnd = rand(-10, 10);
-            //     ySpeed = (startPos + rand(-30, 50)) + '%';
-            ySpeed = elem.dataset.yvel + "%";
-            TweenLite.to(elem, 0, {
-                y: 0,
-                force3D: true
-            });
-            new ScrollMagic.Scene({
-                triggerElement: elem,
-                duration: rand(2, 3) * height + "px"
-            }).setTween(elem, {
-                y: ySpeed,
-                force3D: true
-            }).addTo(parallax);
-        },
         loadSlider: function() {
             $slider = $('.slider').flickity({
                 cellSelector: '.gallery_cell',
                 imagesLoaded: true,
                 lazyLoad: 1,
                 setGallerySize: false,
-                friction: 0.3,
                 //percentPosition: false,
-                wrapAround: false,
+                wrapAround: true,
                 prevNextButtons: false,
                 pageDots: false,
-                draggable: true
+                draggable: false
             });
             flkty = $slider.data('flickity');
             var prevCell;
@@ -195,18 +215,6 @@ $(function() {
             });
             $slider.on('lazyLoad.flickity', function(event, cellElement) {
                 $body.removeClass('loading');
-            });
-            $slider.on('cellSelect.flickity', function() {
-                if (prevCell <= flkty.selectedIndex) {
-                    $slider.removeClass('backwards').addClass('forwards');
-                } else {
-                    $slider.removeClass('forwards').addClass('backwards');
-                }
-                var adjCellPrev = $slider.flickity('getAdjacentCellElementAlone', -1);
-                var adjCellNext = $slider.flickity('getAdjacentCellElementAlone', 1);
-                $(adjCellPrev).removeClass('is-next').addClass('is-prev');
-                $(adjCellNext).removeClass('is-prev').addClass('is-next');
-                prevCell = flkty.selectedIndex;
             });
         },
         goIndex: function() {
@@ -235,6 +243,7 @@ $(function() {
                 $(target).load(url + ' #container .inner', function(response) {
                     setTimeout(function() {
                         $body.removeClass('leaving');
+                        app.displayContent(false);
                     }, 100);
                     if (content.type == 'collection') {
                         $body.attr('class', 'leaving collection');

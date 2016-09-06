@@ -67,8 +67,8 @@
 
 <?php 
 	$collectionsPage = $pages->find('collections');
-    $collections = $collectionsPage->children()->visible();
     $info = $pages->find('info');
+    $press = $pages->find('press');
 ?>
 
 <body <?php if($page->content()->name() == 'collection'): echo ' class="collection"'; else: echo ' class="page"'; endif?>>
@@ -76,24 +76,25 @@
 	<div class="loader"></div>
 
 	<header>
-		<span id="topbar">
-			<span id="site_title">
+			<span id="site_title" class="animate">
 				<a href="<?php echo $site->homePage()->url() ?>" data-target="index">
 					<h1><?php echo $site->title()->html() ?></h1>
 				</a>
 			</span>
 
-			<nav id="menu">
+			<nav id="menu" class="animate">
 				<ul>
-					<li<?php e($collectionsPage->isOpen(), ' class="active"'); ?>>
+					<li<?php e($page->is($collectionsPage), ' class="active"'); ?>>
 						<a href="<?php echo $collectionsPage->url() ?>" data-title="<?php echo $collectionsPage->title()->html() ?>" data-target="page"><h2><?php echo $collectionsPage->title()->html() ?></h2></a>
 					</li>
-					<li<?php e($info->isOpen(), ' class="active"'); ?>>
+					<li id="info_btn"<?php e($page->is($info), ' class="active"'); ?>>
 						<a href="<?php echo $info->url() ?>" data-title="<?php echo $info->title()->html() ?>" data-target="page"><h2><?php echo $info->title()->html() ?></h2></a>
+					</li>
+					<li class="hidden<?php e($page->is($press), ' active'); ?>">
+						<a href="<?php echo $press->url() ?>" data-title="<?php echo $press->title()->html() ?>" data-target="page"><h2><?php echo $press->title()->html() ?></h2></a>
 					</li>
 				</ul>
 			</nav>
-		</span>
 
 	</header>
 
