@@ -19,6 +19,10 @@
 			  		<?= $page->brand()->kt() ?>
 			  	</span>
 			</span>
+		</span>	
+	</section>
+	<section class="animate">
+		<span class="subsections right">
 			<span class="subsection">
 				<span class="column">
 			  		<h2>The Designer</h2>

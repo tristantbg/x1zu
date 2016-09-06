@@ -205,10 +205,6 @@ header
 			.img_hover
 				position absolute
 				width 20%
-			#about .entries
-				flowing-paragraph(2.8em)
-			#awards .column.right
-				span(2/3, offset: 1/3)
 			section, .subsection, #collaborations h2
 				span(1)
 				margin-bottom 1.1em
@@ -228,6 +224,14 @@ header
 						span(1/2)
 				span.address p:last-of-type
 					margin-bottom 0
+			span.subsections.right
+				span(3/4, offset: 1/4)
+			#about
+				span.entries
+					flowing-paragraph(2.8em)
+			#awards
+				.column.right
+					span(2/3, offset: 1/3)
 			footer
 				position fixed
 				bottom $padding
