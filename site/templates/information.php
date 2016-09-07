@@ -6,7 +6,7 @@
 
 <div class="page_content">
 	
-	<section id="about" class="animate">
+	<section class="about animate">
 		<span class="section-title">
 			<h2>About</h2>
 		</span>
@@ -21,7 +21,7 @@
 			</span>
 		</span>	
 	</section>
-	<section class="animate">
+	<section class="about animate">
 		<span class="subsections right">
 			<span class="subsection">
 				<span class="column">
@@ -56,10 +56,12 @@
 		<span class="subsections">
 			<?php foreach($subsections as $subsection): ?>
 				<span class="subsection">
+				<?php if (!$subsection->hidetitle()->bool()):?>
 		  			<span class="column">
 		  				<h2><?= $subsection->title()->html() ?></h2>
 		  			</span>
-		  			<span class="entries">
+		  		<?php endif ?>
+		  			<span class="entries<?php if ($subsection->hidetitle()->bool()) { echo " column right"; } ?>">
 			  			<?php foreach($subsection->entries()->toStructure() as $entry): ?>
 				  			<span class="column">
 				  				<?php if(!$entry->addresslink()->empty()): ?>
@@ -86,26 +88,6 @@
 	</section>
 
 	<?php endforeach ?>
-
-	<section id="socials" class="animate">
-		<span class="section-title">
-			<h2>Follow</h2>
-		</span>
-		<span class="subsections">
-			<span class="subsection">
-				<span class="column">
-					&nbsp;
-				</span>
-				<span class="entries">
-					<span class="column">
-						<?php foreach($page->socials()->yaml() as $social): ?>
-							<a href="<?php echo $social['link'] ?>" target="_blank"><?php echo $social['name'] ?></a><br />
-						<?php endforeach ?>
-					</span>
-				</span>
-			</span>
-		</span>
-	</section>
 	
 </div>
 

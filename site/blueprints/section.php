@@ -7,8 +7,6 @@ pages:
 deletable: true
 preview: false
 visible: false
-options:
-  status: false
 fields:
   title:
     label: Title

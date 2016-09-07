@@ -19,16 +19,3 @@ fields:
   awards:
     label: Awards
     type: textarea
-  socials:
-    label: Social Links
-    type: structure
-    entry: >
-      {{name}} - {{link}}
-    fields:
-      name:
-        label: Name
-        type: text
-        icon: font
-      link:
-        label: Link
-        type: url

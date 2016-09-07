@@ -10,6 +10,13 @@ fields:
   title:
     label: Title
     type:  text
+    width: 1/2
+  hidetitle:
+    label: Hide title
+    type: toggle
+    default: no
+    text: yes/no
+    width: 1/2
   entries:
     label: Entries
     type: structure

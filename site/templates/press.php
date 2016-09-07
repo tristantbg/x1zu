@@ -6,7 +6,7 @@
 
 <div class="page_content">
 	<div class="img_hover">
-		<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="100%">
+		<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="auto" height="auto">
 	</div>
 	<section id="<?= tagslug($page->title()) ?>" class="column right animate">
 			<?php foreach ($press as $entry): ?>
