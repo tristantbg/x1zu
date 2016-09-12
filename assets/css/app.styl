@@ -88,9 +88,10 @@ a:hover, a.hover
 		visibility hidden
 	.animate
 		transition()
-		opacity 0
-		visibility hidden
-	.animate.displayed
+		+above($tablet)
+			opacity 0
+			visibility hidden
+	.animate.displayed, .image.active
 		opacity 1
 		visibility visible
 	.animate.displayed.hide
@@ -187,16 +188,12 @@ header
 	margin-top 3.6em
 	padding 0 $padding $padding
 	line-height 1.6em
-	+below($tablet)
-		margin-top 12vh
 	.inner
 		.page_content
 			position relative
 			transition(opacity)
 			opacity 1
 			z-index 100
-			+below($tablet)
-				margin 0 ($padding / 2) ($padding / 2)
 			.column
 				span(1/2)
 			.column.right
@@ -253,20 +250,49 @@ header
 					float left
 					+below($tablet)
 						content 'AW'
+			section#collections, section#collaborations
+				+below($tablet)
+					.season
+						span(1/4)
+					.column
+						stack()
+					.category
+						display none
+			section#press_access
+				display none
+				text-align center
+				+below($tablet)
+					display block
 			.img_hover
 				position absolute
 				width 30vw
 				height 30vw
 				max-width 1000px
 				max-height 1000px
+				+below($tablet)
+					display none
 				img
 					max-height 100%
 					max-width 100%
+			.img_mobile
+				float left
+				width 50%
+				display none
+				margin-top 0.5em
+				+below($tablet)
+					display block
+				img
+					max-height 100%
+					max-width 100%
+			.img_mobile.landscape
+				width 70%
 			div.slider
 				hideselect()
 				position relative
 				height 65vh
 				cursor pointer
+				+below($tablet)
+					height 100vh
 			div.gallery_cell
 				height 100%
 				width 100%
@@ -279,24 +305,41 @@ header
 				background transparent url('../images/loader.gif') center no-repeat
 				background-size 30px
 				+below($tablet)
-					position initial
+					align(vertical)
+					width 100%
+					height auto
 				img
 					height 100%
 					max-width 100%
 					max-height 100%
-			div.image:nth-child(even)
-				left 15%
-			div.image:nth-child(odd)
-				left 65%
-			div.image, div.left, div.midleft, div.midright, div.right
-				+below($tablet)
-					margin 0 0 ($padding / 2)
-					width 100%
+					+below($tablet)
+						width 100%
+						height auto
 
 body.collection
 	#container
 		margin-top 17.5vh
 		padding 0 $padding
+		+below($tablet)
+			margin-top 0 !important
+
+body.page
+	#container
+		.inner
+			.page_content
+				h2
+					+below($tablet)
+						margin-bottom 1em
+				section.section-title, span.subsections, .column, .entries, .entries .column
+					+below($tablet)
+						stack()
+				.entries
+					.column:nth-child(even)
+						+below($tablet)
+							margin-bottom 1em
+					.column:last-of-type
+						+below($tablet)
+							margin-bottom 0
 
 body.leaving
 	#container .inner

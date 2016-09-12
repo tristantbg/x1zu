@@ -24,6 +24,7 @@
 						<div class="column">
 							<?= $entry->date('F Y') ?>
 						</div>
+						<span class="img_mobile <?= $image->orientation() ?>"><img src="<?= resizeOnDemand($image, 500) ?>" width="auto" height="auto"></span>
 					<?php if (!$link->empty()): ?>
 						</a>
 					<?php endif ?>

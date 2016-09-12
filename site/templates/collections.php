@@ -16,7 +16,7 @@
 							<span class="season"><strong><?= $collection->season() ?></strong></span>
 							<span class="date"><strong><?= $collection->year()->html() ?></strong></span>
 						</div>
-						<div class="column">
+						<div class="category column">
 							<?= $collection->category()->html() ?>
 						</div>
 					</a>
@@ -41,8 +41,9 @@
 							<span class="date"><strong><?= $collaboration->year()->html() ?></strong></span>
 						</div>
 						<div class="column">
-							<span><?= $collaboration->title()->html() ?></span><br/>
-							<span><?= $collaboration->text()->html() ?></span>
+							<span class="collabtitle"><?= $collaboration->title()->html() ?></span><br/>
+							<span class="collabtext"><?= $collaboration->text()->html() ?></span><br/>
+							<span class="img_mobile <?= $image->orientation() ?>"><img src="<?= resizeOnDemand($image, 500) ?>" width="auto" height="auto"></span>
 						</div>
 					<?php if (!$link->empty()): ?>
 						</a>

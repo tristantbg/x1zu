@@ -2,9 +2,10 @@
 
 <?php 
 	$sections = $page->children();
+	$press = $pages->find('press');
 ?>
 
-<div class="page_content">
+<div id="info" class="page_content">
 	
 	<section class="about animate">
 		<span class="section-title">
@@ -89,6 +90,11 @@
 
 	<?php endforeach ?>
 	
+	<section id="press_access" class="animate">
+		<a href="<?php echo $press->url() ?>" data-title="<?php echo $press->title()->html() ?>" data-target="page">
+			<h2>Access <?php echo $press->title()->html() ?> page</h2>
+		</a>
+	</section>
 </div>
 
 
