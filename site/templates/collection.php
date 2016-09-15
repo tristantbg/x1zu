@@ -9,14 +9,14 @@ $img_nb = $gallery->count();
 
 <div class="page_content">
 	<footer>
-		<span class="collection_title<?= ' '.$page->season() ?> column animate"><?= $page->year()->html() ?></span>
+		<span class="collection_title<?= ' '.$page->season() ?> column animate"><span class="season"></span><span class="year"><?= $page->year()->html() ?></span></span>
 		<span class="column animate">
 			<span class="counter"><?php if (s::get('device_class') == 'desktop') { echo "1-2"; } else { echo "1"; } ?></span> / <?= $img_nb ?>
 		</span>
 	</footer>
 
 	<script>
-		var imgNb = <?= $img_nb ?>;
+		imgNb = <?= $img_nb ?>;
 	</script>
 
 	<div class="slider">
@@ -35,8 +35,8 @@ $img_nb = $gallery->count();
 				srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
 				data-src="<?php echo resizeOnDemand($image, 1200) ?>" 
 				data-srcset="<?php echo $srcset ?>" 
-				data-sizes="auto" 
-				data-optimumx="1.5" 
+				data-sizes="50vw" 
+				data-optimumx="1.2" 
 				class="lazyimg lazyload"
 				alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" 
 				width="auto" height="100%">

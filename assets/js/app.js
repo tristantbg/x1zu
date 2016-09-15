@@ -5,8 +5,9 @@ var width,
     isMobile = false,
     isSliding = false,
     slideCount = 1,
+    imgNb,
     $slider = null,
-    $root = '/new',
+    $root = '',
     $body, $intro, $menu, $collections, $container, $header, content, flkty, flickityFirst = true;
 $(function() {
     var app = {
@@ -100,6 +101,7 @@ $(function() {
                 //     }
                 // });
                 window.viewportUnitsBuggyfill.init();
+                app.deferImages();
             });
         },
         slideNext: function() {
@@ -209,6 +211,7 @@ $(function() {
                         app.displayContent(false);
                     }, 100);
                     if (content.type == 'collection') {
+                        app.updateCounter(true);
                         $body.attr('class', 'leaving collection');
                         //app.loadSlider();
                     } else if (content.type == 'page') {
@@ -222,10 +225,11 @@ $(function() {
             }, 200);
         },
         deferImages: function() {
-            var imgDefer = document.getElementsByTagName('img');
+            var imgDefer = document.getElementsByClassName('lazyimg');
             for (var i = 0; i < imgDefer.length; i++) {
                 if (imgDefer[i].getAttribute('data-srcset')) {
                     imgDefer[i].setAttribute('srcset', imgDefer[i].getAttribute('data-srcset'));
+                    imgDefer[i].setAttribute('class', 'lazyimg lazyloaded');
                 }
             }
         }
