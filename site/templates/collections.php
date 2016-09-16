@@ -32,7 +32,7 @@
 				?>
 				<section>
 					<?php if (!$link->empty()): ?>
-						<a href="<?php echo $collaboration->link() ?>" target="_blank" data-image="<?= resizeOnDemand($image, 1000) ?>">
+						<a href="<?php echo $collaboration->link() ?>" target="_blank" data-image="<?= resizeOnDemand($image, 800) ?>">
 					<?php endif ?>
 						<div class="column">
 						<?php if (!$season->empty()): ?>

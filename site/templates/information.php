@@ -75,7 +75,7 @@
 				  				<span class="address">
 						  			<?php if(!$entry->addresslink()->empty()): ?>
 						  				<a class="addresslink" href="<?= $entry->addresslink() ?>" target="_blank">
-						  					<?= $entry->address()->kt() ?>
+						  					<?= $entry->address()->html() ?>
 						  				</a>
 						  			<?php else: echo $entry->address()->kt(); endif ?>
 						  		</span>

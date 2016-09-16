@@ -27,6 +27,7 @@ $(function() {
                 $menu = $('#menu');
                 $collections = $('#menu ul');
                 $header = $('header');
+                imgNb = document.getElementsByClassName('image').length;
                 History.Adapter.bind(window, 'statechange', function() {
                     var State = History.getState();
                     console.log(State);
@@ -117,25 +118,27 @@ $(function() {
                         app.updateCounter();
                     }
                 } else {
-                    isSliding = true;
-                    var next = $(".slider .image:not('.displayed'):eq(0)").add(".slider .image:not('.displayed'):eq(1)");
-                    if (next.length < 1) {
-                        var imgs = $(".slider .image");
-                        imgs.not(':eq(0), :eq(1), :eq(-1), :eq(-2)').attr('class', 'image');
-                        imgs.slice(0, 2).attr('class', 'image animate displayed');
-                        var reset = $(".slider .image:eq(-1)").add(".slider .image:eq(-2)");
-                        reset.eq(0).removeClass('displayed');
-                        app.updateCounter(true);
-                        setTimeout(function() {
-                            reset.eq(1).removeClass('displayed');
-                        }, transition);
-                        setTimeout(function() {
-                            reset.attr('class', 'image');
-                            isSliding = false;
-                        }, transition * 2);
-                    } else {
-                        next.addClass('animate');
-                        app.displayContent(true);
+                    if (imgNb > 2) {
+                        isSliding = true;
+                        var next = $(".slider .image:not('.displayed'):eq(0)").add(".slider .image:not('.displayed'):eq(1)");
+                        if (next.length < 1) {
+                            var imgs = $(".slider .image");
+                            imgs.not(':eq(0), :eq(1), :eq(-1), :eq(-2)').attr('class', 'image');
+                            imgs.slice(0, 2).attr('class', 'image animate displayed');
+                            var reset = $(".slider .image:eq(-1)").add(".slider .image:eq(-2)");
+                            reset.eq(0).removeClass('displayed');
+                            app.updateCounter(true);
+                            setTimeout(function() {
+                                reset.eq(1).removeClass('displayed');
+                            }, transition);
+                            setTimeout(function() {
+                                reset.attr('class', 'image');
+                                isSliding = false;
+                            }, transition * 2);
+                        } else {
+                            next.addClass('animate');
+                            app.displayContent(true);
+                        }
                     }
                 }
             }
@@ -213,6 +216,7 @@ $(function() {
                     if (content.type == 'collection') {
                         app.updateCounter(true);
                         $body.attr('class', 'leaving collection');
+                        imgNb = document.getElementsByClassName('image').length;
                         //app.loadSlider();
                     } else if (content.type == 'page') {
                         $body.attr('class', 'leaving page');

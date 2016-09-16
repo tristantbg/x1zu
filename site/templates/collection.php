@@ -15,10 +15,6 @@ $img_nb = $gallery->count();
 		</span>
 	</footer>
 
-	<script>
-		imgNb = <?= $img_nb ?>;
-	</script>
-
 	<div class="slider">
 	<?php foreach($gallery as $key => $imagename): ?>
 		<?php if ($key%2 == 0 ): ?>

@@ -225,12 +225,11 @@ header
 					span(3/4, offset: 1/4)
 				span.subsection.right
 					span(2/3, offset: 1/3)
+				.column.right
+					span(2/3, offset: 1/3)
 			section.about
 				span.entries
 					flowing-paragraph(2.8em)
-			section
-				.column.right
-					span(2/3, offset: 1/3)
 			footer
 				position fixed
 				bottom $padding
@@ -268,10 +267,11 @@ header
 					+below($tablet)
 						display none
 			section#collections, section#collaborations
-				+below($tablet)
+				+below($tablet) 
+					stack()
 					.season
 						span(1/4)
-					.column
+					.column, section .column
 						stack()
 					.category
 						display none
@@ -349,7 +349,7 @@ body.page
 				h2
 					+below($tablet)
 						margin-bottom 1em
-				section.section-title, span.subsections, .column, .entries, .entries .column
+				section.section-title, section span.subsections, section .column, section .entries, section .entries .column
 					+below($tablet)
 						stack()
 				.entries

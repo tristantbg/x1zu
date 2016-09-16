@@ -16,7 +16,7 @@
 				?>
 				<section>
 					<?php if (!$link->empty()): ?>
-						<a href="<?php echo $entry->link() ?>" target="_blank" data-image="<?= resizeOnDemand($image, 1000) ?>">
+						<a href="<?php echo $entry->link() ?>" target="_blank" data-image="<?= resizeOnDemand($image, 800) ?>">
 					<?php endif ?>
 						<div class="column">
 							<?= $entry->title()->html() ?>
