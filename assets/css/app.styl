@@ -364,9 +364,13 @@ body.page
 							margin-bottom 0
 
 body.leaving
-	background url("../images/loader.gif") center no-repeat
-	background-size 30px
-	height 100vh
+	+below($tablet)
+		background url("../images/loader.gif") center no-repeat
+		background-size 30px
+	header
+		+above($tablet)
+			background $primary url("../images/loader.gif") right $padding top 50% no-repeat
+			background-size auto 50%
 	#container .inner
 		.page_content
 			opacity 0
