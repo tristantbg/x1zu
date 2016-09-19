@@ -9,10 +9,15 @@ fields:
     label: Title
     type:  text
     width: 1/2
-  subtitle:
-    label: Intro subtitle
-    type:  text
+  home:
+    label: Homepage
+    type: select 
+    options: query
     width: 1/2
+    query: 
+      fetch: pages
+      value: "{{uri}}"
+      text: "{{title}}"
   description:
     label: Description
     type:  textarea
