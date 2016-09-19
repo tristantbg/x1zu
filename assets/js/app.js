@@ -217,10 +217,10 @@ $(function() {
                         $body.removeClass('leaving');
                         app.displayContent(false);
                     }, 100);
+                    imgNb = document.getElementsByClassName('image').length;
                     if (content.type == 'collection') {
                         app.updateCounter(true);
                         $body.attr('class', 'leaving collection');
-                        imgNb = document.getElementsByClassName('image').length;
                         //app.loadSlider();
                     } else if (content.type == 'page') {
                         $body.attr('class', 'leaving page');
