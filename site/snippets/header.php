@@ -35,9 +35,18 @@
 	<?php endif ?>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="<?= html($page->url()) ?>" />
-	<?php if($page->content()->name() == "project"): ?>
-		<?php if (!$page->featured()->empty()): ?>
-			<meta property="og:image" content="<?= resizeOnDemand($page->image($page->featured()), 1200) ?>"/>
+	<?php if($page->content()->name() == "collection"): ?>	
+		<?php $gallery = $page->gallery()->toStructure(); ?>
+		<?php if ($gallery->count() > 0): ?>
+			<?php foreach ($gallery as $key => $value): ?>
+				<?php if ($key < 4): ?>
+					<meta property="og:image" content="<?= resizeOnDemand($page->image($value), 1200) ?>"/>
+				<?php endif ?>
+			<?php endforeach ?>
+			<?php else: ?>
+				<?php if(!$site->ogimage()->empty()): ?>
+					<meta property="og:image" content="<?= $site->ogimage()->toFile()->width(1200)->url() ?>"/>
+				<?php endif ?>
 		<?php endif ?>
 	<?php else: ?>
 		<?php if(!$site->ogimage()->empty()): ?>
