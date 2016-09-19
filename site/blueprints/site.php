@@ -15,7 +15,8 @@ fields:
     options: query
     width: 1/2
     query: 
-      fetch: pages
+      page: collections
+      fetch: children
       value: "{{uri}}"
       text: "{{title}}"
   description:
