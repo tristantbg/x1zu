@@ -64,22 +64,24 @@
 		  		<?php endif ?>
 		  			<span class="entries<?php if ($subsection->hidetitle()->bool()) { echo " column right"; } ?>">
 			  			<?php foreach($subsection->entries()->toStructure() as $entry): ?>
-				  			<span class="column">
-				  				<?php if(!$entry->addresslink()->empty()): ?>
-				  				<a class="addresslink" href="<?= $entry->addresslink() ?>" target="_blank">
-				  					<?= $entry->title()->html() ?>
-				  				</a>
-				  				<?php else: echo $entry->title()->html(); endif ?>
-				  			</span>
-				  			<span class="column">
-				  				<span class="address">
-						  			<?php if(!$entry->addresslink()->empty()): ?>
-						  				<a class="addresslink" href="<?= $entry->addresslink() ?>" target="_blank">
-						  					<?= $entry->address()->html() ?>
-						  				</a>
-						  			<?php else: echo $entry->address()->kt(); endif ?>
-						  		</span>
-				  				<?= $entry->text()->kt() ?>
+			  				<span class="entry">
+					  			<span class="column">
+					  				<?php if(!$entry->addresslink()->empty()): ?>
+					  				<a class="addresslink" href="<?= $entry->addresslink() ?>" target="_blank">
+					  					<?= $entry->title()->html() ?>
+					  				</a>
+					  				<?php else: echo $entry->title()->html(); endif ?>
+					  			</span>
+					  			<span class="column">
+					  				<span class="address">
+							  			<?php if(!$entry->addresslink()->empty()): ?>
+							  				<a class="addresslink" href="<?= $entry->addresslink() ?>" target="_blank">
+							  					<?= $entry->address()->html() ?>
+							  				</a>
+							  			<?php else: echo $entry->address()->kt(); endif ?>
+							  		</span>
+					  				<?= $entry->text()->kt() ?>
+					  			</span>
 				  			</span>
 			  			<?php endforeach ?>
 		  			</span>

@@ -68,11 +68,11 @@ $(function() {
                 });
                 $('body').on('mouseenter', ".addresslink", function(e) {
                     e.preventDefault();
-                    $(this).parents('.entries').find('.addresslink').addClass('hover');
+                    $(this).parents('.entry').find('.addresslink').addClass('hover');
                 });
                 $('body').on('mouseleave', ".addresslink", function(e) {
                     e.preventDefault();
-                    $(this).parents('.entries').find('.addresslink').removeClass('hover');
+                    $(this).parents('.entry').find('.addresslink').removeClass('hover');
                 });
                 $('body').on('mouseenter', "[data-image]", function(e) {
                     e.preventDefault();
