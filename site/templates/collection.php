@@ -27,18 +27,15 @@ $img_nb = $gallery->count();
 				for ($i = 200; $i <= 1200; $i += 200) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
 					?>
 
-				<img 
-				srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
-				data-src="<?php echo resizeOnDemand($image, 1200) ?>" 
-				data-srcset="<?php echo $srcset ?>" 
-				data-sizes="50vw" 
+				<div 
+				class="img-container lazyimg<?php if ($key < 4){ echo ' lazyload'; } ?>"
+				data-bgset="<?php echo $srcset ?>" 
+				data-sizes="auto" 
 				data-optimumx="1.2" 
-				class="lazyimg lazyload"
-				alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" 
-				width="auto" height="100%">
+				alt="<?= site()->title()->html().' — '.page()->title()->html() ?>"></div>
 				
 				<noscript>
-					<img src="<?= $image->url() ?>" alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" 
+					<img src="<?= resizeOnDemand($image, 1500) ?>" alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" 
 				width="auto" height="100%" />
 				</noscript>
 			</div>
