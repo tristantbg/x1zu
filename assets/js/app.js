@@ -217,9 +217,9 @@ $(function() {
                         $body.removeClass('leaving');
                         app.displayContent(false);
                     }, 100);
+                    app.updateCounter(true);
                     imgNb = document.getElementsByClassName('image').length;
                     if (content.type == 'collection') {
-                        app.updateCounter(true);
                         $body.attr('class', 'leaving collection');
                         //app.loadSlider();
                     } else if (content.type == 'page') {
