@@ -204,6 +204,9 @@ header
 				margin-bottom 1.1em
 			section:last-of-type, .subsections .subsection:last-of-type
 				margin-bottom 0
+			section:nth-last-child(2)
+				+above($tablet)
+					margin-bottom 0
 			.category
 				text-transform capitalize
 			section
