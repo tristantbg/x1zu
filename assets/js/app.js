@@ -186,7 +186,7 @@ $(function() {
         sizeSet: function() {
             width = $(window).width();
             height = $(window).height();
-            isMobile = ((width <= 770 || Modernizr.touch) ? true : false);
+            if(width <= 770 || Modernizr.touch) isMobile = true;
             if (isMobile) {
                 if (width >= 770) {
                     location.reload();
