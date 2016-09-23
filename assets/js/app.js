@@ -187,7 +187,11 @@ $(function() {
             width = $(window).width();
             height = $(window).height();
             isMobile = ((width <= 770 || Modernizr.touch) ? true : false);
-            if (isMobile) {} else {
+            if (isMobile) {
+                if (width >= 770) {
+                    location.reload();
+                }
+            } else {
                 // var s = skrollr.init({
                 //     smoothScrollingDuration: 500,
                 //     forceHeight: false

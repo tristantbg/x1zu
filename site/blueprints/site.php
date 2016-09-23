@@ -13,6 +13,7 @@ fields:
     label: Homepage
     type: select 
     options: query
+    required: true
     width: 1/2
     query: 
       page: collections
