@@ -62,7 +62,7 @@ $(function() {
                         app.goIndex();
                     }
                 });
-                $('body').on('click touchstart', ".slider", function(e) {
+                $('body').on('click touchend', ".slider", function(e) {
                     e.preventDefault();
                     app.slideNext();
                 });
