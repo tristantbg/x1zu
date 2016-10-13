@@ -12,7 +12,7 @@
 	<?php if($page->isHomepage()): ?>
 		<title><?= $site->title()->html() ?></title>
 	<?php else: ?>
-		<title><?= $site->title()->html() ?> | <?= $page->title()->html() ?></title>
+		<title><?= $page->title()->html() ?> | <?= $site->title()->html() ?></title>
 	<?php endif ?>
 	<?php if($page->isHomepage()): ?>
 		<meta name="description" content="<?= $site->description()->html() ?>">
@@ -30,8 +30,8 @@
 		<meta itemprop="name" content="<?= $site->title()->html() ?>">
 		<meta property="og:title" content="<?= $site->title()->html() ?>" />
 	<?php else: ?>
-		<meta property="og:title" content="<?= $site->title()->html() ?> | <?php echo $page->title()->html() ?>" />
-		<meta itemprop="name" content="<?= $site->title()->html() ?> | <?php echo $page->title()->html() ?>">
+		<meta itemprop="name" content="<?= $page->title()->html() ?> | <?= $site->title()->html() ?>">
+		<meta property="og:title" content="<?= $page->title()->html() ?> | <?= $site->title()->html() ?>" />
 	<?php endif ?>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="<?= html($page->url()) ?>" />
@@ -99,9 +99,11 @@
 					<li id="info_btn"<?php e($page->is($info), ' class="active"'); ?>>
 						<a href="<?php echo $info->url() ?>" data-title="<?php echo $info->title()->html() ?>" data-target="page"><h2><?php echo $info->title()->html() ?></h2></a>
 					</li>
+					<?php if($press->entries()->toStructure()->size() > 0): ?>
 					<li class="hidden<?php e($page->is($press), ' active'); ?>">
 						<a href="<?php echo $press->url() ?>" data-title="<?php echo $press->title()->html() ?>" data-target="page"><h2><?php echo $press->title()->html() ?></h2></a>
 					</li>
+					<?php endif ?>
 				</ul>
 			</nav>
 
