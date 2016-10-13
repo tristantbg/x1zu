@@ -16,7 +16,10 @@
 				?>
 				<section>
 					<?php if (!$link->empty()): ?>
-						<a href="<?php echo $entry->link() ?>" target="_blank" data-image="<?= resizeOnDemand($image, 800) ?>">
+						<a href="<?php echo $entry->link() ?>" target="_blank" 
+						<?php if($image): ?>
+						data-image="<?= resizeOnDemand($image, 800) ?>"
+						<?php endif ?>>
 					<?php endif ?>
 						<div class="column">
 							<?= $entry->title()->html() ?>
@@ -24,7 +27,9 @@
 						<div class="column">
 							<?= $entry->date('F Y') ?>
 						</div>
+						<?php if($image): ?>
 						<span class="img_mobile <?= $image->orientation() ?>"><img src="<?= resizeOnDemand($image, 500) ?>" width="auto" height="auto"></span>
+						<?php endif ?>
 					<?php if (!$link->empty()): ?>
 						</a>
 					<?php endif ?>

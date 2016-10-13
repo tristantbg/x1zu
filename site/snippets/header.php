@@ -99,7 +99,7 @@
 					<li id="info_btn"<?php e($page->is($info), ' class="active"'); ?>>
 						<a href="<?php echo $info->url() ?>" data-title="<?php echo $info->title()->html() ?>" data-target="page"><h2><?php echo $info->title()->html() ?></h2></a>
 					</li>
-					<?php if($press->entries()->toStructure()->size() > 0): ?>
+					<?php if(size($press->entries()->yaml()) > 0): ?>
 					<li class="hidden<?php e($page->is($press), ' active'); ?>">
 						<a href="<?php echo $press->url() ?>" data-title="<?php echo $press->title()->html() ?>" data-target="page"><h2><?php echo $press->title()->html() ?></h2></a>
 					</li>
