@@ -52,11 +52,11 @@ $(function() {
                     if ($el.data('target') == "collection") {
                         History.pushState({
                             type: 'collection'
-                        }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
+                        }, $el.data('title') + " | " + $sitetitle, $el.attr('href'));
                     } else if ($el.data('target') == "page") {
                         History.pushState({
                             type: 'page'
-                        }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
+                        }, $el.data('title') + " | " + $sitetitle, $el.attr('href'));
                     } else if ($el.data('target') == "index") {
                         e.preventDefault();
                         app.goIndex();

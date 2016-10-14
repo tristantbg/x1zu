@@ -43,10 +43,10 @@
 					<meta property="og:image" content="<?= resizeOnDemand($page->image($value), 1200) ?>"/>
 				<?php endif ?>
 			<?php endforeach ?>
-			<?php else: ?>
-				<?php if(!$site->ogimage()->empty()): ?>
-					<meta property="og:image" content="<?= $site->ogimage()->toFile()->width(1200)->url() ?>"/>
-				<?php endif ?>
+		<?php else: ?>
+			<?php if(!$site->ogimage()->empty()): ?>
+				<meta property="og:image" content="<?= $site->ogimage()->toFile()->width(1200)->url() ?>"/>
+			<?php endif ?>
 		<?php endif ?>
 	<?php else: ?>
 		<?php if(!$site->ogimage()->empty()): ?>

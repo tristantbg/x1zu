@@ -16,23 +16,31 @@ fields:
     entry: >
       <table style="width:100%; font-size: 11px">
       	<tr>
-            <td style="width:10%;">Season</td>
-      		<td style="width:10%;">Year</td>
-      		<td style="width:10%;">Title</td>
-      		<td style="width:50%;">Text</td>
-      		<td style="width:10%;">Image</td>
-      		<td style="width:10%;">Link</td>
+            <td style="width:25%;">Link type</td>
+            <td style="width:25%;">Image</td>
+            <td style="width:25%;">Local page</td>
+      		<td style="width:25%;">External Link</td>
       	</tr>
       	<tr>
-      	    <td>{{season}}</td>
-      	    <td>{{year}}</td>
-      		<td>{{title}}</td>
-      		<td>{{text}}</td>
+      	    <td>{{collabtype}}</td>
       		<td><img src="{{_fileUrl}}{{image}}" width="60px"/><br>{{image}}</td>
+      		<td>{{collabpage}}</td>
       		<td>{{link}}</td>
       	</tr>
       </table>
     fields:
+      collabtype:
+        label: Link type
+        type: fieldtoggle
+        options:
+          local: Website page
+          external: External link
+        show:
+          local: collabpage
+          external: year season collabtitle collabtext link
+        hide:
+          local: year season collabtitle collabtext link
+          external: collabpage
       year:
         label: Year
         type:  text
@@ -44,16 +52,26 @@ fields:
         options:
           ss: Spring Summer
           aw: Autumn Winter
-      title:
+      collabtitle:
         label: Title
         type:  text
-      text:
+      collabtext:
         label: Text
         type:  textarea
       image:
         label: Image
         type:  image
         width: 1/2
+      collabpage:
+        label: Collection page
+        type: select 
+        options: query
+        width: 1/2
+        query: 
+          page: collections
+          fetch: children
+          value: '{{uid}}'
+          text: '{{title}}'
       link:
         label: Link
         type:  url

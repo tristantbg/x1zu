@@ -336,6 +336,16 @@ header
 					width 100%
 					background center no-repeat
 					background-size contain
+			div.image:nth-of-type(1)
+				.img-container
+					+above($tablet)
+						width 97.5%
+						margin-right 2.5%
+			div.image:nth-of-type(2)
+				.img-container
+					+above($tablet)
+						width 97.5%
+						margin-left 2.5%
 		.page_content#info 
 			section:nth-last-child(2)
 				+above($tablet)
