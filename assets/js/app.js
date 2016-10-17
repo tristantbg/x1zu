@@ -289,8 +289,8 @@ $(function() {
             setTimeout(function() {
                 $body.scrollTop(0);
                 $(target).load(url + ' #container .inner', function(response) {
+                    app.setSlider();
                     if (content.type == 'collection') {
-                        app.setSlider();
                         $body.attr('class', 'leaving collection');
                         //app.loadSlider();
                     } else if (content.type == 'page') {
