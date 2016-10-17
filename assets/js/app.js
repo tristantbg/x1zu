@@ -182,7 +182,11 @@ $(function() {
                 if (!way || way == 'next') {
                     slideCount = 1;
                 } else {
-                    slideCount = imgNb - 1;
+                    if (isMobile) {
+                        slideCount = imgNb;
+                    } else {
+                        slideCount = imgNb - 1;
+                    }
                 }
             } else {
                 if (isMobile) {
@@ -206,27 +210,36 @@ $(function() {
             }
         },
         setSlider: function() {
-            imgs = $(".slider .image");
-            var images = document.getElementsByClassName('image');
-            var lazyimg = document.getElementsByClassName('lazyimg');
-            imgNb = images.length;
-            var lazyload;
-            if (isMobile) {
-                images[0].className += " active";
-                lazyload = [0, 1, lazyimg.length - 1];
-                for (var i = 0; i < lazyload.length; i++) {
-                    lazyimg[lazyload[i]].className += " lazyload";
+            $slider = $('.slider');
+            if ($slider.length > 0) {
+                imgs = $(".slider .image");
+                var images = document.getElementsByClassName('image');
+                var lazyimg = document.getElementsByClassName('lazyimg');
+                imgNb = images.length;
+                if (imgNb > 0) {
+                    var lazyload;
+                    if (isMobile) {
+                        images[0].className += " active";
+                        lazyload = [0, 1, lazyimg.length - 1];
+                        for (var i = 0; i < lazyload.length; i++) {
+                            if (lazyload[i] < imgNb) {
+                                lazyimg[lazyload[i]].className += " lazyload";
+                            }
+                        }
+                    } else {
+                        images[0].className += " animate";
+                        images[1].className += " animate";
+                        lazyload = [0, 1, 2, 3, lazyimg.length - 1, lazyimg.length - 2];
+                        for (var i = 0; i < lazyload.length; i++) {
+                            if (lazyload[i] < imgNb) {
+                                lazyimg[lazyload[i]].className += " lazyload";
+                            }
+                        }
+                        document.getElementsByClassName('gallery_cell')[0].className += " active";
+                    }
+                    app.updateCounter(true);
                 }
-            } else {
-                images[0].className += " animate";
-                images[1].className += " animate";
-                lazyload = [0, 1, 2, 3, lazyimg.length - 1, lazyimg.length - 2];
-                for (var i = 0; i < lazyload.length; i++) {
-                    lazyimg[lazyload[i]].className += " lazyload";
-                }
-                document.getElementsByClassName('gallery_cell')[0].className += " active";
             }
-            app.updateCounter(true);
         },
         displayContent: function(slider) {
             var time = 0;
