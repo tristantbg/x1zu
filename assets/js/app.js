@@ -5,7 +5,9 @@ var width,
     isMobile = false,
     isSliding = false,
     slideCount = 1,
+    imgs,
     imgNb,
+    $currentCell, next,
     $slider = null,
     $root = '',
     $body, $intro, $menu, $collections, $container, $header, content, flkty, flickityFirst = true;
@@ -14,7 +16,6 @@ $(function() {
         init: function() {
             $(window).load(function() {
                 $(".loader").fadeOut(300);
-                app.sizeSet();
                 app.displayContent(false);
             });
             $(window).resize(function(event) {
@@ -27,7 +28,8 @@ $(function() {
                 $menu = $('#menu');
                 $collections = $('#menu ul');
                 $header = $('header');
-                imgNb = document.getElementsByClassName('image').length;
+                app.sizeSet();
+                app.setSlider();
                 History.Adapter.bind(window, 'statechange', function() {
                     var State = History.getState();
                     console.log(State);
@@ -62,9 +64,13 @@ $(function() {
                         app.goIndex();
                     }
                 });
-                $('body').on('click touchend', ".slider", function(e) {
+                $('body').on('click touchstart', '.prev', function(e) {
                     e.preventDefault();
-                    app.slideNext();
+                    app.slide('prev');
+                });
+                $('body').on('click touchstart', '.next', function(e) {
+                    e.preventDefault();
+                    app.slide('next');
                 });
                 $('body').on('mouseenter', ".addresslink", function(e) {
                     e.preventDefault();
@@ -86,13 +92,13 @@ $(function() {
                 $(document).keyup(function(e) {
                     if (e.keyCode === 27) app.goIndex();
                 });
-                //left
-                // $(document).keyup(function(e) {
-                //     if (e.keyCode === 37) app.slideNext();
-                // });
-                // //right
+                // left
                 $(document).keyup(function(e) {
-                    if (e.keyCode === 39) app.slideNext();
+                    if (e.keyCode === 37) app.slide('prev');
+                });
+                //right
+                $(document).keyup(function(e) {
+                    if (e.keyCode === 39) app.slide('next');
                 });
                 // $(window).scroll(function(event) {
                 //     if ($(window).scrollTop() > 45) {
@@ -102,59 +108,95 @@ $(function() {
                 //     }
                 // });
                 window.viewportUnitsBuggyfill.init();
-                //app.deferImages();
             });
         },
-        slideNext: function() {
+        slide: function(way) {
             if (!isSliding) {
                 if (isMobile) {
-                    var imgs = $(".slider .image");
                     var $currentImg = $(".image.active");
                     imgs.attr('class', 'image');
-                    $activeImg = imgs.eq((imgs.index($currentImg) + 1) % imgs.length).addClass("active");
-                    var $currentCell = $activeImg.parent();
-                    $currentCell.next().find('.lazyimg').addClass('lazyload');
-                    if ($activeImg.is(imgs.eq(0))) {
-                        app.updateCounter(true);
+                    if (way == 'next') {
+                        $activeImg = imgs.eq((imgs.index($currentImg) + 1) % imgs.length).addClass("active");
+                        $next = imgs.eq((imgs.index($activeImg) + 1) % imgs.length);
+                        $next.find('.lazyimg').addClass('lazyload');
+                        if ($activeImg.is(imgs.eq(0))) {
+                            app.updateCounter(true, way);
+                        } else {
+                            app.updateCounter(false, way);
+                        }
                     } else {
-                        app.updateCounter();
+                        $activeImg = imgs.eq((imgs.index($currentImg) - 1) % imgs.length).addClass("active");
+                        $prev = imgs.eq((imgs.index($activeImg) - 1) % imgs.length);
+                        $prev.find('.lazyimg').addClass('lazyload');
+                        if ($activeImg.is(imgs.eq(-1))) {
+                            app.updateCounter(true, way);
+                        } else {
+                            app.updateCounter(false, way);
+                        }
                     }
                 } else {
                     if (imgNb > 2) {
                         isSliding = true;
-                        var next = $(".slider .image:not('.displayed'):eq(0)").add(".slider .image:not('.displayed'):eq(1)");
-                        var $currentCell = next.parent();
-                        $currentCell.next().find('.lazyimg').addClass('lazyload');
-                        if (next.length < 1) {
-                            var imgs = $(".slider .image");
-                            imgs.not(':eq(0), :eq(1), :eq(-1), :eq(-2)').attr('class', 'image');
-                            imgs.slice(0, 2).attr('class', 'image animate displayed');
-                            var reset = $(".slider .image:eq(-1)").add(".slider .image:eq(-2)");
-                            reset.eq(0).removeClass('displayed');
-                            app.updateCounter(true);
+                        var cells = $(".slider .gallery_cell");
+                        var $currentCell = $(".gallery_cell.active");
+                        cells.attr('class', 'gallery_cell');
+                        if (way == 'next') {
+                            $currentCell = cells.eq((cells.index($currentCell) + 1) % cells.length).addClass("active");
+                            $nextCell = cells.eq((cells.index($currentCell) + 1) % cells.length);
+                            $prevCell = cells.eq((cells.index($currentCell) - 1) % cells.length);
+                            $nextCell.find('.lazyimg').addClass('lazyload');
+                            $currentCell.find('.image').addClass('animate');
+                            if ($currentCell.is(cells.eq(0))) {
+                                app.updateCounter(true, way);
+                            } else {
+                                app.updateCounter(false, way);
+                            }
+                            app.displayContent(false, way);
                             setTimeout(function() {
-                                reset.eq(1).removeClass('displayed');
-                            }, transition);
-                            setTimeout(function() {
-                                reset.attr('class', 'image');
+                                $prevCell.find('.image').attr('class', 'image');
                                 isSliding = false;
                             }, transition * 2);
                         } else {
-                            next.addClass('animate');
-                            app.displayContent(true);
+                            $currentCell = cells.eq((cells.index($currentCell) - 1) % cells.length).addClass("active");
+                            $nextCell = cells.eq((cells.index($currentCell) + 1) % cells.length);
+                            $prevCell = cells.eq((cells.index($currentCell) - 1) % cells.length);
+                            $prevCell.find('.lazyimg').addClass('lazyload');
+                            $currentCell.find('.image').addClass('animate');
+                            if ($currentCell.is(cells.eq(-1))) {
+                                app.updateCounter(true, way);
+                            } else {
+                                app.updateCounter(false, way);
+                            }
+                            app.displayContent(false, way);
+                            setTimeout(function() {
+                                $nextCell.find('.image').attr('class', 'image');
+                                isSliding = false;
+                            }, transition * 2);
                         }
                     }
                 }
             }
         },
-        updateCounter: function(reset) {
+        updateCounter: function(reset, way) {
             if (reset) {
-                slideCount = 1;
+                if (!way || way == 'next') {
+                    slideCount = 1;
+                } else {
+                    slideCount = imgNb - 1;
+                }
             } else {
                 if (isMobile) {
-                    slideCount++;
+                    if (way == 'next') {
+                        slideCount++;
+                    } else {
+                        slideCount--;
+                    }
                 } else {
-                    slideCount += 2;
+                    if (way == 'next') {
+                        slideCount += 2;
+                    } else {
+                        slideCount -= 2;
+                    }
                 }
             }
             if (isMobile) {
@@ -162,6 +204,29 @@ $(function() {
             } else {
                 $('.counter').html(slideCount + '–' + (slideCount + 1));
             }
+        },
+        setSlider: function() {
+            imgs = $(".slider .image");
+            var images = document.getElementsByClassName('image');
+            var lazyimg = document.getElementsByClassName('lazyimg');
+            imgNb = images.length;
+            var lazyload;
+            if (isMobile) {
+                images[0].className += " active";
+                lazyload = [0, 1, lazyimg.length - 1];
+                for (var i = 0; i < lazyload.length; i++) {
+                    lazyimg[lazyload[i]].className += " lazyload";
+                }
+            } else {
+                images[0].className += " animate";
+                images[1].className += " animate";
+                lazyload = [0, 1, 2, 3, lazyimg.length - 1, lazyimg.length - 2];
+                for (var i = 0; i < lazyload.length; i++) {
+                    lazyimg[lazyload[i]].className += " lazyload";
+                }
+                document.getElementsByClassName('gallery_cell')[0].className += " active";
+            }
+            app.updateCounter(true);
         },
         displayContent: function(slider) {
             var time = 0;
@@ -176,7 +241,7 @@ $(function() {
                             $(".slider .image.animate.displayed:not('.hide')").slice(0, 2).addClass('hide');
                             isSliding = false;
                         } else {
-                            app.updateCounter();
+                            app.updateCounter(true, way);
                         }
                     }
                 }, time);
@@ -186,18 +251,12 @@ $(function() {
         sizeSet: function() {
             width = $(window).width();
             height = $(window).height();
-            if(width <= 770 || Modernizr.touch) isMobile = true;
+            if (width <= 770 || Modernizr.touch) isMobile = true;
             if (isMobile) {
                 if (width >= 770) {
                     location.reload();
                 }
-            } else {
-                // var s = skrollr.init({
-                //     smoothScrollingDuration: 500,
-                //     forceHeight: false
-                // });
-                //app.scrollEffect();
-            }
+            } else {}
         },
         goIndex: function() {
             History.pushState({
@@ -217,13 +276,8 @@ $(function() {
             setTimeout(function() {
                 $body.scrollTop(0);
                 $(target).load(url + ' #container .inner', function(response) {
-                    setTimeout(function() {
-                        $body.removeClass('leaving');
-                        app.displayContent(false);
-                    }, 100);
-                    app.updateCounter(true);
-                    imgNb = document.getElementsByClassName('image').length;
                     if (content.type == 'collection') {
+                        app.setSlider();
                         $body.attr('class', 'leaving collection');
                         //app.loadSlider();
                     } else if (content.type == 'page') {
@@ -231,6 +285,10 @@ $(function() {
                     } else {
                         $body.attr('class', 'leaving collection');
                     }
+                    setTimeout(function() {
+                        $body.removeClass('leaving');
+                        app.displayContent(false);
+                    }, 100);
                     //app.deferImages();
                     app.sizeSet();
                 });

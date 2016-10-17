@@ -11,7 +11,7 @@ $img_nb = $gallery->count();
 	<footer>
 		<span class="collection_title<?= ' '.$page->season() ?> column animate"><span class="season"></span><span class="year"><?= $page->year()->html() ?></span></span>
 		<span class="column animate">
-			<span class="counter"><?php if (s::get('device_class') == 'desktop') { echo "1-2"; } else { echo "1"; } ?></span> / <?= $img_nb ?>
+			<span class="counter"><?php if (s::get('device_class') == 'desktop') { echo "1–2"; } else { echo "1"; } ?></span> / <?= $img_nb ?>
 		</span>
 	</footer>
 
@@ -21,14 +21,14 @@ $img_nb = $gallery->count();
 			<div class="gallery_cell">
 		<?php endif ?>
 		<?php $image = $page->image($imagename) ?>
-	  		<div class="image<?php if ($key == 0 && s::get('device_class') == 'desktop' || $key == 1 && s::get('device_class') == 'desktop'){ echo " animate"; } elseif ($key == 0 && s::get('device_class') != 'desktop'){ echo " active"; } ?>">
+	  		<div class="image">
 				<?php 
 				$srcset = '';
 				for ($i = 200; $i <= 1200; $i += 200) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
 					?>
 
 				<div 
-				class="img-container lazyimg<?php if ($key < 4){ echo ' lazyload'; } ?>"
+				class="img-container lazyimg"
 				data-bgset="<?php echo $srcset ?>" 
 				data-sizes="auto" 
 				data-optimumx="1.2" 
@@ -43,6 +43,10 @@ $img_nb = $gallery->count();
 			</div>
 		<?php endif ?>
 	<?php endforeach ?>
+	</div>
+	<div class="slider-navigation">
+		<div class="prev"></div>
+		<div class="next"></div>
 	</div>
 </div>
 
