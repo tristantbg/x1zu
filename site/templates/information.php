@@ -91,12 +91,13 @@
 	</section>
 
 	<?php endforeach ?>
-	
+	<?php if(size($press->entries()->yaml()) > 0): ?>
 	<section id="press_access" class="animate">
 		<a href="<?php echo $press->url() ?>" data-title="<?php echo $press->title()->html() ?>" data-target="page">
 			<strong>Access <?php echo $press->title()->html() ?> page</strong>
 		</a>
 	</section>
+	<?php endif ?>
 </div>
 
 
